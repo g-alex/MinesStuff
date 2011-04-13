@@ -6,6 +6,7 @@ package fr.composers;
 
 import fr.xml.XMLManagement;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -15,6 +16,11 @@ import org.zkoss.zul.Button;
 import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 //import javax.servlet.ServletRegistration;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -60,7 +66,18 @@ public class IndexComposer extends GenericForwardComposer {
 
         log("getRequestDispatcher: " + guacaContext.getRequestDispatcher(guacaContext.getContextPath()).toString());
 
-        log(guacaContext.getResourcePaths("/WEB-INF/").toString());
+        for (Object res : guacaContext.getResourcePaths("/WEB-INF/")) {
+            if (res.toString().contains("xml")) {
+                Document doc = XMLManagement.openXML(this.parentDir(guacaContext.getRealPath(guacaContext.getContextPath())) + res.toString());
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                StreamResult result = new StreamResult(new StringWriter());
+                DOMSource source = new DOMSource(doc);
+                transformer.transform(source, result);
+
+                log(result.getWriter().toString());
+            }
+        }
 
 //        if (guacaContext.setInitParameter("host", "172.28.2.197")) {
 //            this.log.setValue(guacaContext.getInitParameter("host"));
