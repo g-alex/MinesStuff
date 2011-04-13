@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-    <window id="win" title="Wait please..." apply="fr.composers.WaitComposer" style="height: 100%;">
-        Please wait...
-    </window>
-</zk>

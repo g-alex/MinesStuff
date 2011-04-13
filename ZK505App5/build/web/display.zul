@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-    <window id="win" title="" apply="fr.composers.DisplayComposer" style="height: 100%;">
-        <button id="home" label="Accueil" href="/"/>
-        <iframe id="guacamole" style="width: 100%; height: 100%; border: 0px;" src="http://localhost:8080/guacamole" />
-    </window>
-</zk>
