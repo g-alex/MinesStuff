@@ -1,4 +1,3 @@
-
 package net.sourceforge.guacamole.net;
 
 /*
@@ -18,7 +17,6 @@ package net.sourceforge.guacamole.net;
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 import java.util.concurrent.locks.ReentrantLock;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -55,8 +53,7 @@ public class GuacamoleSession {
         public void valueUnbound(HttpSessionBindingEvent event) {
             try {
                 disconnect();
-            }
-            catch (GuacamoleException e) {
+            } catch (GuacamoleException e) {
                 // Ignore
             }
         }
@@ -80,13 +77,13 @@ public class GuacamoleSession {
         public Instruction nextInstruction(boolean blocking) throws GuacamoleException {
             return client.nextInstruction(blocking);
         }
-
     }
 
     public GuacamoleSession(HttpSession session) throws GuacamoleException {
 
-        if (session == null)
+        if (session == null) {
             throw new GuacamoleException("User has no session.");
+        }
 
         this.session = session;
         synchronized (session) {
@@ -103,8 +100,9 @@ public class GuacamoleSession {
     public void connect() throws GuacamoleException {
         synchronized (session) {
 
-            if (client != null)
+            if (client != null) {
                 client.disconnect();
+            }
 
 
             String protocol = config.getProtocol();
@@ -119,23 +117,20 @@ public class GuacamoleSession {
 
                     client = new SessionClient(
                             new VNCClient(
-                                vncconfig.getHostname(),
-                                vncconfig.getPort(),
-                                vncconfig.getPassword(),
-                                vncconfig.getBPP(),
-                                config.getOutputBPP(),
-                                config.getSwapRedAndBlue()
-                            )
-                    );
+                            vncconfig.getHostname(),
+                            vncconfig.getPort(),
+                            vncconfig.getPassword(),
+                            vncconfig.getBPP(),
+                            config.getOutputBPP(),
+                            config.getSwapRedAndBlue()));
 
-                }
-                catch (VNCException e) {
+                } catch (VNCException e) {
                     throw new GuacamoleException(e);
                 }
 
-            }
-            else
+            } else {
                 throw new GuacamoleException("Unsupported protocol: " + protocol);
+            }
 
             session.setAttribute("CLIENT", client);
 
@@ -160,12 +155,12 @@ public class GuacamoleSession {
     }
 
     public void disconnect() throws GuacamoleException {
-        if (client != null)
+        if (client != null) {
             client.disconnect();
+        }
     }
 
     public ReentrantLock getInstructionStreamLock() {
         return instructionStreamLock;
     }
-
 }

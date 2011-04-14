@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
-    <artifactId>ListenerTest</artifactId>
+    <artifactId>NoListenerTest</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>ListenerTest Java EE 6 Webapp</name>
+    <name>NoListenerTest Java EE 6 Webapp</name>
     <url>http://maven.apache.org</url>
     <repositories>
         <repository>
@@ -50,7 +50,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>ListenerTest</finalName>
+        <finalName>NoListenerTest</finalName>
     </build>
     <profiles>
         <profile>

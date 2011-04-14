@@ -27,14 +27,6 @@
         </session-timeout>
     </session-config>
     <!-- Servlets -->
-    <context-param>
-        <param-name>host</param-name>
-        <param-value>172.28.2.197</param-value>
-    </context-param>
-    <context-param>
-        <param-name>port</param-name>
-        <param-value>5900</param-value>
-    </context-param>
     <servlet>
         <servlet-name>Connect</servlet-name>
         <servlet-class>net.sourceforge.guacamole.net.control.Connect</servlet-class>

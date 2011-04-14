@@ -13,13 +13,19 @@ import javax.servlet.ServletContextAttributeListener;
  */
 public class ContextAttributeListener implements ServletContextAttributeListener {
 
+    @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
         CountContextAttribute.incremente();
+        CountContextAttribute.setAttribute(event.getName(), event.getValue());
     }
 
+    @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
+        CountContextAttribute.removeAttribute(event.getName());
     }
 
+    @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
+        CountContextAttribute.setAttribute(event.getName(), event.getValue());
     }
 }

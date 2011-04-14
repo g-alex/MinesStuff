@@ -21,6 +21,6 @@ public class DisplayComposer extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
 
-        win.setTitle(XMLManagement.getIp(XMLManagement.openXML(XMLManagement.CATALINA_HOME + "/conf/Catalina/localhost/guacamole.xml")));
+        win.setTitle(XMLManagement.getIp(XMLManagement.openXML(XMLManagement.CATALINA_HOME + "/conf/Catalina/localhost/guacadev.xml")));
     }
 }

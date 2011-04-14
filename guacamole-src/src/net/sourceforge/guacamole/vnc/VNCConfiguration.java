@@ -51,6 +51,10 @@ public class VNCConfiguration extends Configuration {
         return hostname;
     }
 
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
     public int getPort() {
         return port;
     }
