@@ -25,7 +25,6 @@ import org.zkoss.zul.Textbox;
  */
 public class IndexComposer extends GenericForwardComposer {
 
-    private static String guacaContextFile = System.getenv("CATALINA_HOME") + "/conf/Catalina/localhost/guacadev.xml";
     private Map<String, String> ips;
     Listbox vncIp;
     Button goVnc;
