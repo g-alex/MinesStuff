@@ -4,7 +4,6 @@
  */
 package fr.composers;
 
-import fr.xml.XMLManagement;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Window;
@@ -21,6 +20,6 @@ public class DisplayComposer extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
 
-        win.setTitle(XMLManagement.getIp(XMLManagement.openXML(XMLManagement.CATALINA_HOME + "/conf/Catalina/localhost/guacadev.xml")));
+//        win.setTitle(XMLManagement.getIp(XMLManagement.openXML(XMLManagement.CATALINA_HOME + "/conf/Catalina/localhost/guacadev.xml")));
     }
 }

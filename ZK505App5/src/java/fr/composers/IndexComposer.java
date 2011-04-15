@@ -4,7 +4,6 @@
  */
 package fr.composers;
 
-import fr.xml.XMLManagement;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -13,7 +12,7 @@ import java.util.Map;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import java.util.regex.Pattern;
-import org.w3c.dom.Document;
+import javax.servlet.ServletContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -26,7 +25,7 @@ import org.zkoss.zul.Textbox;
  */
 public class IndexComposer extends GenericForwardComposer {
 
-    private static String guacaContextFile = XMLManagement.CATALINA_HOME + "/conf/Catalina/localhost/guacadev.xml";
+    private static String guacaContextFile = System.getenv("CATALINA_HOME") + "/conf/Catalina/localhost/guacadev.xml";
     private Map<String, String> ips;
     Listbox vncIp;
     Button goVnc;
@@ -50,17 +49,11 @@ public class IndexComposer extends GenericForwardComposer {
         } // for
     } // void doAfterCompose(Component)
 
-    public void onClick$goVnc(Event event) throws Exception {
-
+    public void onClick$goVnc(Event event) throws UnknownHostException, IOException {
         String ip = (String) this.vncIp.getSelectedItem().getValue();
         if (this.checkIp(ip)) {
-            Document doc = XMLManagement.openXML(guacaContextFile);
-            String xmlContent = XMLManagement.setIp(doc, ip);
-            if (xmlContent != null) {
-                XMLManagement.writeXML(guacaContextFile, xmlContent);
-            } // if
-
-            Executions.sendRedirect("/wait.zul");
+            ((ServletContext) this.application.getNativeContext()).getContext("/guacadev").setAttribute("host", ip);
+            Executions.sendRedirect("/display.zul");
         } // if
     } // void setXML(String)
 

@@ -32,7 +32,12 @@ public class VNCConfiguration extends Configuration {
 
         super(context);
 
-        hostname = readParameter("host", null);
+        String hostname = (String) context.getAttribute("host");
+        if (hostname != null) {
+            this.hostname = hostname;
+        } else {
+            this.hostname = readParameter("host", null);
+        }
         port = readIntParameter("port", null);
         password = context.getInitParameter("password");
         bpp = readIntParameter("bpp", 24, 8, 16, 24);
@@ -49,10 +54,6 @@ public class VNCConfiguration extends Configuration {
 
     public String getHostname() {
         return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
     }
 
     public int getPort() {
