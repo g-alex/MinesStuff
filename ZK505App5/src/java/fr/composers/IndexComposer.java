@@ -17,6 +17,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 
 /**
  *
@@ -26,6 +27,7 @@ public class IndexComposer extends GenericForwardComposer {
 
     private Map<String, String> ips;
     Listbox vncIp;
+    Listitem noChoice;
     Button goVnc;
     Iframe guacamole;
 
@@ -54,9 +56,17 @@ public class IndexComposer extends GenericForwardComposer {
             if (this.guacamole.getSrc() == null) {
                 this.guacamole.setSrc("http://localhost:8080/guacadev");
             } // if
-            this.guacamole.invalidate();
-        } // if
+        } else {
+            this.guacamole.setSrc(null);
+        } // else
+        this.guacamole.invalidate();
     } // void setXML(String)
+
+    public void onClick$reset(Event event) {
+        vncIp.setSelectedItem(noChoice);
+        this.guacamole.setSrc(null);
+        this.guacamole.invalidate();
+    }
 
     // check if given ip is a well-formed IP adress
     private boolean checkIp(String ip) throws UnknownHostException, IOException {
