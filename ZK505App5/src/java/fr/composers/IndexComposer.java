@@ -14,10 +14,9 @@ import org.zkoss.zul.Button;
 import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Textbox;
 
 /**
  *
@@ -28,7 +27,7 @@ public class IndexComposer extends GenericForwardComposer {
     private Map<String, String> ips;
     Listbox vncIp;
     Button goVnc;
-    Textbox log;
+    Iframe guacamole;
 
     public IndexComposer() {
         super();
@@ -52,7 +51,10 @@ public class IndexComposer extends GenericForwardComposer {
         String ip = (String) this.vncIp.getSelectedItem().getValue();
         if (this.checkIp(ip)) {
             ((ServletContext) this.application.getNativeContext()).getContext("/guacadev").setAttribute("host", ip);
-            Executions.sendRedirect("/display.zul");
+            if (this.guacamole.getSrc() == null) {
+                this.guacamole.setSrc("http://localhost:8080/guacadev");
+            } // if
+            this.guacamole.invalidate();
         } // if
     } // void setXML(String)
 
@@ -71,17 +73,4 @@ public class IndexComposer extends GenericForwardComposer {
         } // if
         return true;
     } // boolean checkIp(String)
-
-    private String parentDir(String realPath) {
-        String[] dirs = realPath.split("/");
-        String result = "";
-        for (int i = 0; i + 1 < dirs.length; ++i) {
-            result += dirs[i] + "/";
-        }
-        return result;
-    }
-
-    private void log(String message) {
-        this.log.setValue(log.getValue() + message + "\n");
-    }
 }
