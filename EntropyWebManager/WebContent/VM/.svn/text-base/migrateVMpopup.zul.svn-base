@@ -1,2 +1,0 @@
-<window id="win" use="fr.chavrier.entropyWebManager.customComponents.MigrateVMWindow" title="Create new VM" border="normal" width="200px" closable="true">
-</window>
