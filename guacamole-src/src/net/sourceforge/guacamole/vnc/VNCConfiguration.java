@@ -32,12 +32,7 @@ public class VNCConfiguration extends Configuration {
 
         super(context);
 
-        String hostAttr = (String) context.getAttribute("host");
-        if (hostAttr != null) {
-            this.hostname = hostAttr;
-        } else {
-            this.hostname = readParameter("host", null);
-        }
+        this.hostname = this.findHostname(context);
         this.port = readIntParameter("port", null);
         this.password = context.getInitParameter("password");
         this.bpp = readIntParameter("bpp", 24, 8, 16, 24);
@@ -58,5 +53,9 @@ public class VNCConfiguration extends Configuration {
 
     public int getPort() {
         return this.port;
+    }
+
+    private String findHostname(ServletContext context) throws GuacamoleException {
+        return (context.getAttribute("host") == null) ? readParameter("host", null) : (String) context.getAttribute("host");
     }
 }

@@ -1,0 +1,85 @@
+<?page title="Entropy Web Manager"?>
+<window id="indexWindow" border="0" height="100%" width="100%"
+	apply="fr.chavrier.entropyWebManager.composers.IndexComposer">
+	<style src="./Styles/test1.css"/>
+	<borderlayout sclass="omplex-layout" height="100%" >
+		<north >
+			<menubar id="menubar" width="100%">
+				<menu label="Menu">
+					<menupopup>
+						<menuitem  id="helpBtn" label="Help"/>
+						<menuitem  id="aboutBtn" label="About"/>
+					</menupopup>
+				</menu>
+			</menubar>
+		</north>
+		<west title="Monitored resources" id="west" collapsible="true"
+			width="15%" border="normal" splittable="true" flex="true">
+			<div>
+				<tree id="tree" />
+			</div>
+		</west>
+		<center id="mainFrame" border="0">
+			<tabbox height="100%" id="tb" >
+				<tabs>
+					<tab id="monitoredItem" label="Home" />
+					<tab label="BtrScript Console" />
+					<tab label="Entropy control" />
+					<tab label="VNC Viewer" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<include id="include" src="./error404.zul"/>
+					</tabpanel>
+					<tabpanel >
+							<vlayout id="consoleOutput"  height="90%" width="100%" style="overflow:auto;"/>
+							<textbox id="consoleInput" ctrlKeys="#up#down" height="20px" width="100%" />
+					</tabpanel>
+					<tabpanel>
+						<panel title="Entropy mode" border="normal"
+							style="margin-bottom:5px">
+							<panelchildren>
+								<radiogroup onCheck="">
+									<vbox>
+										<radio id="stopRadio"
+											label="Stop" />
+										<radio id="semiRadio"
+											label="Semi-auto" />
+										<radio id="autoRadio"
+											label="Auto" />
+									</vbox>
+								</radiogroup>
+							</panelchildren>
+						</panel>
+						<timer id="timer" running="true" delay="1000"
+							repeats="true">
+						</timer>
+						<panel title="Reconfiguration plan"
+							border="normal">
+							<panelchildren>
+								<label id="planLabel" />
+								<hbox>
+									<button id="notApplyBtn"
+										label="Do NOT apply">
+									</button>
+									<button id="applyBtn"
+										label="Apply">
+									</button>
+								</hbox>
+							</panelchildren>
+						</panel>
+					</tabpanel>
+					<tabpanel id="vncViewer">
+							
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</center>
+		<east title="CurrentActions" width="10%" collapsible="true"
+			border="normal" splittable="true" flex="true">
+			<vlayout id="actionVLayout" width="100%">
+			</vlayout>
+			
+		</east>
+	</borderlayout>
+</window>

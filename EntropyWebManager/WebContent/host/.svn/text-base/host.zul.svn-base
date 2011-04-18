@@ -1,0 +1,90 @@
+<window id="window"
+	apply="fr.chavrier.entropyWebManager.composers.HostComposer" border="0"
+	height="100%">
+	<borderlayout sclass="inner-border" style="background: #FFFFFF">
+		<center border="0" margins="5,5,5,5">
+			<div>
+				<vbox width="805px">
+					<hbox style="border:2px">
+						<panel title="CPU perf." border="normal">
+							<panelchildren>
+								<hbox width="100%">
+									<chart width="400" height="250"
+										id="cpuChart" type="time_series">
+									</chart>
+								</hbox>
+							</panelchildren>
+						</panel>
+						<panel title="Memory perfs." border="normal">
+							<panelchildren>
+								<hbox width="100%">
+									<chart width="400" height="250"
+										id="ramChart" type="time_series">
+									</chart>
+								</hbox>
+							</panelchildren>
+						</panel>
+					</hbox>
+					<panel title="Host infos" border="normal">
+						<panelchildren>
+							<grid style="border:0">
+								<rows>
+									<row>
+										<div>
+											<label id="nameLabel" />
+										</div>
+									</row>
+									<row>
+										<div>
+											<label id="nbCpuLabel" />
+										</div>
+									</row>
+									<row>
+										<div>
+											<label id="cpuArchiLabel" />
+										</div>
+									</row>
+									<row>
+										<div>
+											<label id="cpuSpeedLabel" />
+										</div>
+									</row>
+									<row>
+										<div>
+											<label id="memorySizeLabel" />
+										</div>
+									</row>
+									<row>
+										<div>
+											<label id="usedCpuLabel" />
+										</div>
+									</row>
+									<row>
+										<div>
+											<label id="usedMemoryLabel" />
+										</div>
+									</row>
+								</rows>
+							</grid>
+						</panelchildren>
+					</panel>
+					<button id="createVMBtn" label="Create new VM"
+						autodisable="self">
+					</button>
+					<panel>
+						<panelchildren>
+							<listbox id="vmsLB">
+								<listhead>
+									<listheader>Name</listheader>
+									<listheader>CPU</listheader>
+									<listheader>RAM</listheader>
+									<listheader>State</listheader>
+								</listhead>
+							</listbox>
+						</panelchildren>
+					</panel>
+				</vbox>
+			</div>
+		</center>
+	</borderlayout>
+</window>
