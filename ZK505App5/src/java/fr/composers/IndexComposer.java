@@ -52,9 +52,9 @@ public class IndexComposer extends GenericForwardComposer {
     public void onClick$goVnc(Event event) throws UnknownHostException, IOException {
         String ip = (String) this.vncIp.getSelectedItem().getValue();
         if (this.checkIp(ip)) {
-            ((ServletContext) this.application.getNativeContext()).getContext("/guacadev").setAttribute("host", ip);
+            ((ServletContext) this.application.getNativeContext()).getContext("/guacamole").setAttribute("host", ip);
             if (this.guacamole.getSrc() == null) {
-                this.guacamole.setSrc("http://localhost:8080/guacadev");
+                this.guacamole.setSrc("http://localhost:8080/guacamole");
             } // if
         } else {
             this.guacamole.setSrc(null);
