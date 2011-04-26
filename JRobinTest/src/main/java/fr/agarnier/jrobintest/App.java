@@ -27,9 +27,9 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         App.setVITESSES();
-        App.setWATT();
+        long startTime = App.setWATT();
         App.graphTest();
-        App.graphWatt();
+        App.graphWatt(startTime - 5);
     } // static void main(String[])
 
     private static void setVITESSES() {
@@ -51,7 +51,7 @@ public class App {
         App.VITESSES.put(new Long(1051485300), new Double(12423));
     }
 
-    private static void setWATT() {
+    private static long setWATT() {
         App.WATT = new LinkedHashMap<Long, Double>();
         App.WATT.put(1303217652180L, 27.8D);
         App.WATT.put(1303217657974L, 27.6D);
@@ -70,7 +70,7 @@ public class App {
         App.WATT.put(1303217733317L, 28.7D);
         App.WATT.put(1303217739101L, 28.3D);
         App.WATT.put(1303217744890L, 28.5D);
-        App.lol();
+        return App.lol();
     }
 
     private static void graphTest() throws RrdException, IOException {
@@ -101,25 +101,28 @@ public class App {
         gDef.datasource("bonne", "kmh,100,GT,0,kmh,IF");
         gDef.datasource("rapide", "kmh,100,GT,kmh,0,IF");
         gDef.datasource("over", "kmh,100,GT,100,kmh,-,0,IF");
+        gDef.datasource("under", "kmh,100,GT,0,kmh,100,-,IF");
         gDef.hrule(100, Color.BLUE, "limite");
-        gDef.area("bonne", Color.GREEN, "bonne");
+        gDef.area("bonne", new Color(0, 128, 0), "bonne");
         gDef.area("rapide", new Color(128, 0, 0), "rapide");
         gDef.stack("over", Color.RED, "over");
+        gDef.stack("under", new Color(128, 128, 255), "under");
         gDef.setImageFormat("png");
 
         // then actually draw the graph
         RrdGraph graph = new RrdGraph(gDef); // will create the graph in the path specified
     }
 
-    private static void graphWatt() throws RrdException, IOException {
+    private static void graphWatt(long startTime) throws RrdException, IOException {
 
-        long startTime = (1303217634820L / 1000) - 4;
         RrdDef rrdDef = new RrdDef(PACKAGE, startTime, 5);
         rrdDef.addDatasource("Watt", DT_GAUGE, 5, 0, Double.NaN);
         rrdDef.addArchive(CF_LAST, 0.5, 1, 20);
+        rrdDef.addArchive(CF_AVERAGE, 0.5, 5, 20);
 
         RrdDb rrdDb = new RrdDb(rrdDef);
         Sample sample = rrdDb.createSample();
+        int i = 0;
         for (Map.Entry<Long, Double> e : App.WATT.entrySet()) {
             sample.setTime(e.getKey());
             sample.setValue("Watt", e.getValue());
@@ -131,28 +134,31 @@ public class App {
         gDef.setHeight(300);
         gDef.setFilename("src/main/resources/graphs/graphWatt.png");
         gDef.setStartTime(startTime);
-        gDef.setEndTime(startTime + 95);
+        gDef.setEndTime(startTime + 93);
         gDef.setTitle("Watt");
         gDef.setVerticalLabel("Watt");
 
         gDef.datasource("Watt", rrdDef.getPath(), "Watt", CF_LAST);
-        gDef.line("Watt", Color.RED, "Watt");
+        gDef.line("Watt", Color.BLUE, "Watt");
         gDef.setImageFormat("png");
 
         // then actually draw the graph
         RrdGraph graph = new RrdGraph(gDef); // will create the graph in the path specified
     }
 
-    static void lol() {
+    static long lol() {
+        long result = Long.MAX_VALUE;
         ConsumptionList list = new BasicConsumptionList();
         for (Map.Entry<Long, Double> e : App.WATT.entrySet()) {
-            list.addData(e.getKey(), "toto", e.getValue());
+            list.addData(e.getKey(), e.getValue());
         }
         App.WATT.clear();
         for (long time = list.getMinTime(); time < list.getMaxTime(); time += 5000) {
-            App.WATT.put(time, list.getConsumption(time));
+            long meinTime = time / 1000;
+            result = meinTime < result ? meinTime : result;
+            App.WATT.put(meinTime, list.getConsumption(time));
         }
-
+        return result;
     }
 } // class App
 
