@@ -33,6 +33,11 @@
             <artifactId>jrobin</artifactId>
             <version>1.5.12</version>
         </dependency>
+        <dependency>
+            <groupId>fr.lelouet.server.consumption</groupId>
+            <artifactId>consumption-model</artifactId>
+            <version>0.2.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
@@ -42,6 +47,10 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>entropy</id>
+            <url>http://www.emn.fr/z-info/entropy/repository</url>
         </repository>
     </repositories>
 </project>
