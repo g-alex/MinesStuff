@@ -20,21 +20,21 @@ import org.jrobin.graph.RrdGraphDef;
  */
 public class App {
 
-    private static int STEP = 15;
-
     public static void main(String[] args) throws RrdException, IOException {
 
         ConsumptionList list = App.getList();
 
+        int step = (int) Math.max(1, (list.getMaxTime() - list.getMinTime()) / 400000);
+
         long startTime = (list.getMinTime() / 1000) - 1;
 
-        RrdDef rrdDef = new RrdDef("src/main/resources/rrd/watt.rrd", startTime, App.STEP);
-        rrdDef.addDatasource("Watt", DT_GAUGE, App.STEP, 0, Double.NaN);
-        rrdDef.addArchive(CF_LAST, 0.5, 1, (int) (list.getMaxTime() - list.getMinTime()) / (1000 * App.STEP));
+        RrdDef rrdDef = new RrdDef("src/main/resources/rrd/watt.rrd", startTime, step);
+        rrdDef.addDatasource("Watt", DT_GAUGE, step, 0, Double.NaN);
+        rrdDef.addArchive(CF_LAST, 0.5, 1, (int) (list.getMaxTime() - list.getMinTime()) / (1000 * step));
 
         RrdDb rrdDb = new RrdDb(rrdDef);
         Sample sample = rrdDb.createSample();
-        for (long time = list.getMinTime(); time < list.getMaxTime(); time += 1000 * App.STEP) {
+        for (long time = list.getMinTime(); time < list.getMaxTime(); time += 1000 * step) {
             sample.setTime(time / 1000);
             sample.setValue("Watt", list.getConsumption(time));
             sample.update();
@@ -64,7 +64,7 @@ public class App {
 
     static ConsumptionList getList() {
         ConsumptionList list = new BasicConsumptionList();
-        for (long l = 1303217634820L; l < 1303217634820L + 1000 * 5789; l += 5789) {
+        for (long l = 1303217634820L; l < 1303217634820L + 3600 * 1000; l += 5789) {
             list.addData(l, ((double) (int) (((Math.random() * 1.3) + 27.4) * 10)) / 10);
         }
         return list;
