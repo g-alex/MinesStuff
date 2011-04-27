@@ -4,6 +4,7 @@ import fr.lelouet.consumption.basic.BasicConsumptionList;
 import fr.lelouet.consumption.model.ConsumptionList;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Calendar;
 import static org.jrobin.core.ConsolFuns.*;
 import static org.jrobin.core.DsTypes.*;
 import org.jrobin.core.RrdDb;
@@ -19,34 +20,42 @@ import org.jrobin.graph.RrdGraphDef;
  */
 public class App {
 
+    private static int STEP = 15;
+
     public static void main(String[] args) throws RrdException, IOException {
+
         ConsumptionList list = App.getList();
 
         long startTime = (list.getMinTime() / 1000) - 1;
 
-        RrdDef rrdDef = new RrdDef("src/main/resources/rrd/watt.rrd", startTime, 5);
-        rrdDef.addDatasource("Watt", DT_GAUGE, 5, 0, Double.NaN);
-        rrdDef.addArchive(CF_LAST, 0.1, 1, 20);
+        RrdDef rrdDef = new RrdDef("src/main/resources/rrd/watt.rrd", startTime, App.STEP);
+        rrdDef.addDatasource("Watt", DT_GAUGE, App.STEP, 0, Double.NaN);
+        rrdDef.addArchive(CF_LAST, 0.5, 1, (int) (list.getMaxTime() - list.getMinTime()) / (1000 * App.STEP));
 
         RrdDb rrdDb = new RrdDb(rrdDef);
         Sample sample = rrdDb.createSample();
-        for (long time = list.getMinTime(); time < list.getMaxTime(); time += 5000) {
+        for (long time = list.getMinTime(); time < list.getMaxTime(); time += 1000 * App.STEP) {
             sample.setTime(time / 1000);
             sample.setValue("Watt", list.getConsumption(time));
             sample.update();
         }
         rrdDb.close();
+
         RrdGraphDef gDef = new RrdGraphDef();
         gDef.setWidth(500);
         gDef.setHeight(300);
         gDef.setFilename("src/main/resources/graphs/graphWatt.png");
-        gDef.setStartTime((list.getMinTime()/1000)+6);
-        gDef.setEndTime((list.getMaxTime()/1000)-5);
-        gDef.setTitle("Watt");
+        gDef.setStartTime(list.getMinTime() / 1000);
+        gDef.setEndTime(list.getMaxTime() / 1000);
+
+        gDef.setColor("CANVAS", new Color(12, 24, 24));
+        gDef.setTitle("Consumption graph | " + App.parseDate(list.getMinTime())
+                + " - " + App.parseDate(list.getMaxTime()));
         gDef.setVerticalLabel("Watt");
 
         gDef.datasource("Watt", rrdDef.getPath(), "Watt", CF_LAST);
-        gDef.line("Watt", Color.BLUE, "Watt");
+        gDef.line("Watt", Color.GREEN, "Watt consumption");
+
         gDef.setImageFormat("png");
 
         // then actually draw the graph
@@ -55,27 +64,23 @@ public class App {
 
     static ConsumptionList getList() {
         ConsumptionList list = new BasicConsumptionList();
-        list.addData(1303217634820L, 36.1D);
-        list.addData(1303217640609L, 28.0D);
-        list.addData(1303217646394L, 27.5D);
-        list.addData(1303217652180L, 27.8D);
-        list.addData(1303217657974L, 27.6D);
-        list.addData(1303217663760L, 27.8D);
-        list.addData(1303217669545L, 27.4D);
-        list.addData(1303217675332L, 27.9D);
-        list.addData(1303217681119L, 27.6D);
-        list.addData(1303217686906L, 28.7D);
-        list.addData(1303217692692L, 28.6D);
-        list.addData(1303217698478L, 28.7D);
-        list.addData(1303217704373L, 27.9D);
-        list.addData(1303217710159L, 27.6D);
-        list.addData(1303217715946L, 28.4D);
-        list.addData(1303217721738L, 28.4D);
-        list.addData(1303217727528L, 28.6D);
-        list.addData(1303217733317L, 28.7D);
-        list.addData(1303217739101L, 28.3D);
-        list.addData(1303217744890L, 28.5D);
+        for (long l = 1303217634820L; l < 1303217634820L + 1000 * 5789; l += 5789) {
+            list.addData(l, ((double) (int) (((Math.random() * 1.3) + 27.4) * 10)) / 10);
+        }
         return list;
+    }
+
+    private static String parseDate(long Time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(Time);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int minute = cal.get(Calendar.MINUTE);
+        int second = cal.get(Calendar.SECOND);
+
+        return cal.get(Calendar.DATE) + "/" + (month < 10 ? 0 : "") + month
+                + "/" + cal.get(Calendar.YEAR) + "~"
+                + cal.get(Calendar.HOUR_OF_DAY) + ":" + (minute < 10 ? 0 : "")
+                + minute + ":" + (second < 10 ? 0 : "") + second;
     }
 } // class App
 

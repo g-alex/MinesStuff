@@ -35,7 +35,7 @@
         <dependency>
             <groupId>fr.lelouet.server.consumption</groupId>
             <artifactId>consumption-model</artifactId>
-            <version>0.3.3-SNAPSHOT</version>
+            <version>0.3.5</version>
         </dependency>
     </dependencies>
     <repositories>
