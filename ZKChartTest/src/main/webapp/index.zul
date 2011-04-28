@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window>
+        <chart id="linechart" title="Line Chart" width="500" height="250"
+            type="line" threeD="false" fgAlpha="128" />
+    </window>
+</zk>

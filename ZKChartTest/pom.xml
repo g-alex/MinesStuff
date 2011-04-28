@@ -3,20 +3,19 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.garnier</groupId>
-    <artifactId>ZKChartTest</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>ZKChartTest JEE5 Webapp</name>
     <url>http://maven.apache.org</url>
+
     <dependencies>
 
+        <!-- Servlets -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
@@ -24,6 +23,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -31,25 +31,50 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- ZK -->
         <dependency>
             <groupId>org.zkoss.zk</groupId>
             <artifactId>zk</artifactId>
-            <version>5.0.4</version>
+            <version>5.0.6</version>
         </dependency>
-
         <dependency>
             <groupId>org.zkoss.zk</groupId>
             <artifactId>zul</artifactId>
-            <version>5.0.4</version>
+            <version>5.0.6</version>
         </dependency>
-    
+
+        <!-- Charts -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.42</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.15</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
+
     <repositories>
         <repository>
             <id>zk repository</id>
             <url>http://mavensync.zkoss.org/maven2</url>
         </repository>
     </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -63,7 +88,10 @@
         </plugins>
         <finalName>ZKChartTest</finalName>
     </build>
+
     <properties>
         <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
     </properties>
+    <artifactId>ZKMavenTest</artifactId>
+    <name>ZKMavenTest</name>
 </project>
