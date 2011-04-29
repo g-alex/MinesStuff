@@ -5,7 +5,6 @@ import fr.lelouet.consumption.model.ConsumptionList;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Calendar;
-import org.jfree.chart.ChartPanel;
 import static org.jrobin.core.ConsolFuns.*;
 import static org.jrobin.core.DsTypes.*;
 import org.jrobin.core.RrdDb;
