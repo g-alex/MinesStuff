@@ -10,9 +10,9 @@
 		<defaultValueExpression><![CDATA[Long.MAX_VALUE]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select nom as Machine, min(watt) as Minimum, max(watt) as Maximum, sum(watt)/count(watt) as Average from mesures where time > $P{from} and time < $P{to} group by nom;]]>
+		<![CDATA[select nom as Server, min(watt) as Minimum, max(watt) as Maximum, avg(watt) as Average from mesures where time > $P{from} and time < $P{to} group by nom;]]>
 	</queryString>
-	<field name="Machine" class="java.lang.String"/>
+	<field name="Server" class="java.lang.String"/>
 	<field name="Minimum" class="java.lang.Double"/>
 	<field name="Maximum" class="java.lang.Double"/>
 	<field name="Average" class="java.lang.Double"/>
@@ -53,7 +53,7 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Machine]]></text>
+				<text><![CDATA[Server]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
@@ -88,7 +88,7 @@
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Machine}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Server}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="138" y="0" width="138" height="20"/>
