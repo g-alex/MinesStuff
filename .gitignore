@@ -3,3 +3,4 @@ EntropyWebManager/*
 */build*
 guacamole-src/*
 Icanhazcheezburger/*
+*.~lock.*
