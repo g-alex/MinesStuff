@@ -3,19 +3,71 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="from" class="java.lang.Long">
-		<defaultValueExpression><![CDATA[Long.MIN_VALUE]]></defaultValueExpression>
-	</parameter>
-	<parameter name="to" class="java.lang.Long">
-		<defaultValueExpression><![CDATA[Long.MAX_VALUE]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[select nom as Server, min(watt) as Minimum, max(watt) as Maximum, avg(watt) as Average from mesures where time > $P{from} and time < $P{to} group by nom;]]>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+  *
+FROM (
+  (
+    SELECT
+      CONCAT("Each ",category) AS Type,
+      nom AS Machine,
+      MIN(watt) AS Minimum,
+      MAX(watt) AS Maximum,
+      AVG(watt) AS Average
+    FROM
+      mesures
+    GROUP BY
+      nom
+  ) UNION (
+    SELECT
+      CONCAT("All ",category, "s") AS Type,
+      CONCAT(category, "s") AS Machine,
+      MIN(watt) AS Minimum,
+      MAX(watt) AS Maximum,
+      AVG(watt) AS Average
+    FROM
+      mesures
+    GROUP BY
+      category
+  )
+) AS
+  metrics
+ORDER BY
+  Type, Machine
+;]]>
 	</queryString>
-	<field name="Server" class="java.lang.String"/>
+	<field name="Type" class="java.lang.String"/>
+	<field name="Machine" class="java.lang.String"/>
 	<field name="Minimum" class="java.lang.Double"/>
 	<field name="Maximum" class="java.lang.Double"/>
 	<field name="Average" class="java.lang.Double"/>
+	<group name="Type">
+		<groupExpression><![CDATA[$F{Type}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Type]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{Type}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
 	<background>
 		<band/>
 	</background>
@@ -24,18 +76,18 @@
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699"/>
 				<staticText>
-					<reportElement x="20" y="20" width="185" height="43" forecolor="#FFFFFF"/>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Statistics]]></text>
+					<text><![CDATA[Metrics]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Watts consumption]]></text>
+					<text><![CDATA[Cluster metrics]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -53,7 +105,7 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Server]]></text>
+				<text><![CDATA[Machine]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
@@ -88,7 +140,7 @@
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Server}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Machine}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="138" y="0" width="138" height="20"/>
