@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping package="fr.garnier.hsqldbtest">
+    <class name="Survey" table="SURVEY" dynamic-update="false" dynamic-insert="false">
+        <cache usage="read-write"/>
+        <id name="Id" type="int" unsaved-value="0">
+            <column name="ID" sql-type="int" not-null="true"/>
+            <generator class="increment"></generator>
+        </id>
+        <property name="name" type="java.lang.String" update="true" insert="true" access="property" column="name"/>
+        <property name="purchaseDate" type="date" column="purchasedate" />
+    </class>
+</hibernate-mapping>
