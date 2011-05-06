@@ -1,8 +1,6 @@
 package fr.garnier.hsqldbtest;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import org.hibernate.Session;
 
 /**
@@ -10,11 +8,10 @@ import org.hibernate.Session;
  *
  */
 public class App {
-
     public static void main(String[] args) throws Exception {
         HibernateUtil hibernateUtil = new HibernateUtil();
-        hibernateUtil.executeSQLCommand("create table survey "
-                + "(id int,name varchar, purchasedate date);");
+//        hibernateUtil.executeSQLCommand("create table survey "
+//                + "(id int,name varchar, purchasedate date);");
 
         Session session = hibernateUtil.getSession();
 
@@ -26,14 +23,12 @@ public class App {
         session.save(survey);
         session.flush();
 
-        List cds = session.createQuery("from Survey").list();
-        Iterator iter = cds.iterator();
-        while (iter.hasNext()) {
-            Survey cd = (Survey) iter.next();
-            System.out.println(cd.getName());
-        }
+        for (Object cd : session.createQuery("from Survey").list()) {
+            System.out.println(((Survey) cd).getName());
+        } // for
 
         session.close();
         hibernateUtil.checkData("select * from survey");
-    }
-}
+    } // static void main(String[])
+} // class App
+

@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="connection.url">jdbc:hsqldb:data/tutorial</property>
+        <property name="connection.url">jdbc:hsqldb:file:data/tutorial;hsqldb.cache_rows=10000;shutdown=true</property>
         <property name="connection.username">sa</property>
         <property name="connection.password"></property>
 
@@ -25,6 +25,7 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <!-- Mapping files -->
         <mapping resource="Survey.hbm.xml"/>
