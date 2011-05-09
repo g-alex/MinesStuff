@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:data/test;shutdown=true</property>
+        <property name="hibernate.connection.username">sa</property>
+
+        <property name="connection.pool_size">1</property>
+
+        <property name="hbm2ddl.auto">update</property>
+
+        <mapping class="fr.garnier.hsqlhibernate.Person"/>
+    </session-factory>
+</hibernate-configuration>
