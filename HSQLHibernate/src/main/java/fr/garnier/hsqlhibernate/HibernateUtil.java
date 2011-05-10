@@ -2,9 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fr.garnier.hsqlhibernate;
-
 
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
@@ -15,6 +13,7 @@ import org.hibernate.SessionFactory;
  * @author bobi
  */
 public class HibernateUtil {
+
     private static final SessionFactory sessionFactory;
 
     static {

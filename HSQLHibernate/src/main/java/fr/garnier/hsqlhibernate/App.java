@@ -1,6 +1,8 @@
 package fr.garnier.hsqlhibernate;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  * Hello world!
@@ -9,15 +11,17 @@ import org.hibernate.Session;
 public class App {
 
     public static void main(String[] args) {
-//        System.out.println( "Hello World!" );
 
         Person person = new Person();
         person.setNom("Dumont");
-        person.setPrenom("Frederic");
+        person.setPrenom("Frédéric");
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        SessionFactory sessFact = HibernateUtil.getSessionFactory();
+        Session session = sessFact.openSession();
 
-        session.save(person);
+        Transaction transact = session.beginTransaction();
+        System.out.println((Long) session.save(person));
+        transact.commit();
 
         for (Object entry : session.createQuery("from Person").list()) {
             Person pEntry = (Person) entry;
@@ -25,7 +29,8 @@ public class App {
                     + pEntry.getPrenom());
         }
 
-        session.flush();
         session.close();
+        sessFact.close();
+
     }
 }

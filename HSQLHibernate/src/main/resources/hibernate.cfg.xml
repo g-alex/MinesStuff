@@ -6,10 +6,13 @@
         <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
         <property name="hibernate.connection.url">jdbc:hsqldb:file:data/test;shutdown=true</property>
         <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"></property>
 
         <property name="connection.pool_size">1</property>
 
         <property name="hbm2ddl.auto">update</property>
+
+        <property name="show_sql">true</property>
 
         <mapping class="fr.garnier.hsqlhibernate.Person"/>
     </session-factory>
