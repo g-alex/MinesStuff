@@ -50,7 +50,8 @@ ORDER BY
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<text><![CDATA[Type]]></text>
+					<text><![CDATA[Type
+                    ]]></text>
 				</staticText>
 				<textField>
 					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
@@ -80,14 +81,16 @@ ORDER BY
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Metrics]]></text>
+					<text><![CDATA[Metrics
+                    ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Cluster metrics]]></text>
+					<text><![CDATA[Cluster metrics
+                    ]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -105,28 +108,32 @@ ORDER BY
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Machine]]></text>
+				<text><![CDATA[Machine
+                ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Minimum]]></text>
+				<text><![CDATA[Minimum
+                ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="276" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Maximum]]></text>
+				<text><![CDATA[Maximum
+                ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="414" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="414" y="0" width="141" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Average]]></text>
+				<text><![CDATA[Average
+                ]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -157,7 +164,7 @@ ORDER BY
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{Maximum}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="414" y="0" width="138" height="20"/>
+				<reportElement x="414" y="0" width="141" height="20"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
