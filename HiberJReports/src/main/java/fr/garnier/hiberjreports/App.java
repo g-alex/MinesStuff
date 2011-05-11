@@ -1,7 +1,7 @@
 package fr.garnier.hiberjreports;
 
 import fr.garnier.hiberjreports.hibernate.HibernateUtil;
-import fr.garnier.hiberjreports.hibernate.Mesure;
+import fr.garnier.hiberjreports.hibernate.MachineConsumption;
 import org.hibernate.Session;
 
 /**
@@ -15,8 +15,8 @@ public class App {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        for (Object entry : session.createQuery("from Mesure").list()) {
-            System.out.println((Mesure) entry);
+        for (Object entry : session.createQuery("from MachineConsumption").list()) {
+            System.out.println((MachineConsumption) entry);
         } // for
     } // static void maint(String[])
 } // class App

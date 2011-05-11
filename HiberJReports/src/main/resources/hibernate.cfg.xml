@@ -9,7 +9,7 @@
         <property name="hibernate.connection.password">tototiti</property>
 
         <property name="hibernate.show_sql">true</property>
-
-        <mapping class="fr.garnier.hiberjreports.hibernate.Mesure" />
+        
+        <mapping class="fr.garnier.hiberjreports.hibernate.MachineConsumption" />
     </session-factory>
 </hibernate-configuration>
