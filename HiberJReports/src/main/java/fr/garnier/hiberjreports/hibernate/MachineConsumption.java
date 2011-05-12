@@ -4,6 +4,7 @@
  */
 package fr.garnier.hiberjreports.hibernate;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "metrics")
-public class MachineConsumption {
+public class MachineConsumption implements Serializable {
 
     private String type;
     @Id
@@ -119,6 +120,10 @@ public class MachineConsumption {
 
     @Override
     public String toString() {
-        return "MachineConsumption{" + "type=" + type + "machine=" + machine + "minWatt=" + minWatt + "maxWatt=" + maxWatt + "avgWatt=" + avgWatt + "minCpu=" + minCpu + "maxCpu=" + maxCpu + "avgCpu=" + avgCpu + "minRam=" + minRam + "maxRam=" + maxRam + "avgRam=" + avgRam + '}';
+        return "MachineConsumption{" + "type=" + type + "machine=" + machine
+                + "minWatt=" + minWatt + "maxWatt=" + maxWatt
+                + "avgWatt=" + avgWatt + "minCpu=" + minCpu + "maxCpu=" + maxCpu
+                + "avgCpu=" + avgCpu + "minRam=" + minRam + "maxRam=" + maxRam
+                + "avgRam=" + avgRam + '}';
     }
 }
