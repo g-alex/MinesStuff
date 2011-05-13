@@ -4,3 +4,4 @@ EntropyWebManager/*
 guacamole-src/*
 Icanhazcheezburger/*
 *.~lock.*
+.bak/*
