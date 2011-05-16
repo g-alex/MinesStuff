@@ -1,5 +1,6 @@
 package fr.garnier.hibernatest;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 /**
@@ -12,13 +13,18 @@ public class App {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Car car = new Car();
-        car.setBrand("Mercedes");
-        car.setColor(Color.GREEN);
-        car.setWheels(4);
+//        Car car = new Car();
+//        car.setBrand("Altuntas-mobile");
+//        car.setColor(Color.BLUE);
+//        car.setWheels(4);
+//
+//        session.save(car);
+//        session.flush();
 
-        session.save(car);
-        session.flush();
+        Criteria criteria = session.createCriteria(Car.class);
+        for (Object o : criteria.list()) {
+            System.out.println((Car) o);
+        }
 
         session.close();
     }

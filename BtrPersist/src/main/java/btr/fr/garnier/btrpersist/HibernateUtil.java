@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.garnier.hibernatest;
+package btr.fr.garnier.btrpersist;
 
 import java.io.File;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -11,9 +11,9 @@ import org.hibernate.SessionFactory;
 /**
  * Hibernate Utility class with a convenient method to get Session Factory object.
  *
- * @author bobi
+ * @author agarnier
  */
-public class HibernateUtil {
+class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
 

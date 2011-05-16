@@ -10,5 +10,5 @@ package fr.garnier.hibernatest;
  */
 public enum Color {
 
-    GREEN, BLUE, RED, YELLOW, BLACK, WHITE
+    RED, BLUE, GREEN, YELLOW, BLACK, WHITE
 }
