@@ -1,7 +1,7 @@
-package fr.garnier.hiberjreports;
+package btr.fr.garnier.hiberjreports;
 
 import btr.fr.garnier.btrpersist.Persist;
-import fr.garnier.hiberjreports.hibernate.Metrics;
+import btr.fr.garnier.hiberjreports.hibernate.Metrics;
 import java.io.File;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -16,14 +16,25 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
- * Hello world!
+ * Reports generation application based on JasperReports & iReport.
  *
+ * @author agarnier
  */
 public class App {
 
     public static void main(String[] args) throws JRException {
 
-        Persist.setConfigFile(new File("src/main/resources/hibernate.cfg.xml"));
+        setConfigFile:
+        {
+            if (args.length > 0) {
+                File configFile = new File(args[0]);
+                if (configFile.exists()) {
+                    Persist.setConfigFile(configFile);
+                    break setConfigFile;
+                } // if
+            } // if
+            Persist.setConfigFile(new File("src/main/resources/hibernate.cfg.xml"));
+        } // setConfigFile
 
         JasperDesign jspDesign = JRXmlLoader.load("src/main/resources/"
                 + "jasperreports/hiberReport.jrxml");

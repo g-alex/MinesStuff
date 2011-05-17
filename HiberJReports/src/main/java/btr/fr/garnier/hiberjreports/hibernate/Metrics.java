@@ -2,15 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.garnier.hiberjreports.hibernate;
+package btr.fr.garnier.hiberjreports.hibernate;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
+ * Mapped entity class to Metrics hibernate table.
  *
- * @author bobi
+ * @author agarnier
  */
 @Entity
 public class Metrics implements Serializable {

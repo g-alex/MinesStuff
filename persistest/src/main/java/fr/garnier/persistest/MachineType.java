@@ -6,7 +6,7 @@ package fr.garnier.persistest;
 
 /**
  *
- * @author bobi
+ * @author agarnier
  */
 public enum MachineType {
 

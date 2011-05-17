@@ -29,11 +29,22 @@ class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
+    /**
+     * Get default session factory.
+     *
+     * @return Default session factory.
+     */
+    static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
-    public static SessionFactory getSessionFactory(File configFile) {
+    /**
+     * Get session factory based on given hibernate configuration file.
+     *
+     * @param configFile Hibernate configuration file.
+     * @return configFile based session factory.
+     */
+    static SessionFactory getSessionFactory(File configFile) {
         return new AnnotationConfiguration().configure(configFile).buildSessionFactory();
     }
 }
