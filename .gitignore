@@ -5,3 +5,6 @@ guacamole-src/*
 Icanhazcheezburger/*
 *.~lock.*
 .bak/*
+*.pdf
+*.xls
+*.jasper
