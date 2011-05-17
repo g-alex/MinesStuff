@@ -5,13 +5,13 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 <!--        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
         <property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost/jasper_database</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/btrpersist</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">tototiti</property>
         <property name="hibernate.connection.pool_size">1</property>
 
         <property name="hibernate.show_sql">true</property>
         
-        <mapping class="fr.garnier.hiberjreports.hibernate.MachineConsumption" />
+        <mapping class="fr.garnier.hiberjreports.hibernate.Metrics" />
     </session-factory>
 </hibernate-configuration>

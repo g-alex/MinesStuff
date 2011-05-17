@@ -10,6 +10,6 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="fr.garnier.persistest.Dummy"/>
+        <mapping class="fr.garnier.persistest.MachineConsumption"/>
     </session-factory>
 </hibernate-configuration>

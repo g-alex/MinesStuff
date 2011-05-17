@@ -1,7 +1,8 @@
 package fr.garnier.hiberjreports;
 
-import fr.garnier.hiberjreports.hibernate.HibernateUtil;
-import fr.garnier.hiberjreports.hibernate.MachineConsumption;
+import btr.fr.garnier.btrpersist.Persist;
+import fr.garnier.hiberjreports.hibernate.Metrics;
+import java.io.File;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -13,9 +14,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
 /**
  * Hello world!
@@ -25,17 +23,14 @@ public class App {
 
     public static void main(String[] args) throws JRException {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Criteria criteria = session.createCriteria(MachineConsumption.class);
-        criteria.addOrder(Order.asc("type"));
+        Persist.setConfigFile(new File("src/main/resources/hibernate.cfg.xml"));
 
         JasperDesign jspDesign = JRXmlLoader.load("src/main/resources/"
                 + "jasperreports/hiberReport.jrxml");
         JasperReport jspReport = JasperCompileManager.compileReport(jspDesign);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jspReport, null,
-                new JRBeanCollectionDataSource(criteria.list()));
-        
+                new JRBeanCollectionDataSource(Persist.get(Metrics.class, "type")));
+
         JasperExportManager.exportReportToPdfFile(jasperPrint, "src/main/"
                 + "resources/jasperreports/hiberReport.pdf");
 

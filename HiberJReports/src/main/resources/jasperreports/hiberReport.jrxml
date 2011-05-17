@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString language="SQL">
-		<![CDATA[from MachineConsumption]]>
+		<![CDATA[from Metrics]]>
 	</queryString>
 	<field name="type" class="java.lang.String"/>
 	<field name="machine" class="java.lang.String"/>

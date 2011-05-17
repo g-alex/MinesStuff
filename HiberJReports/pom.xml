@@ -58,6 +58,11 @@
             <artifactId>poi</artifactId>
             <version>3.7</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>BtrPersist</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
