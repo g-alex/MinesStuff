@@ -40,6 +40,11 @@
             <artifactId>jta</artifactId>
             <version>1.0.1B</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>BtrPersist</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
