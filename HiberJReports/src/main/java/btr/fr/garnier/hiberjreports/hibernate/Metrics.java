@@ -16,6 +16,7 @@ import javax.persistence.Id;
 @Entity
 public class Metrics implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String type;
     @Id
     private String machine;

@@ -5,10 +5,13 @@
 package btr.fr.garnier.btrpersist;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Order;
 
 /**
@@ -21,30 +24,23 @@ import org.hibernate.criterion.Order;
  */
 public class Persist {
 
-    private static File configFile;
-
-    /**
-     * Set hibernate configuration file.
-     *
-     * @param configFile Hibernate configuration file.
-     */
-    public static void setConfigFile(File configFile) {
-        Persist.configFile = configFile;
-    } // static void setConfigFile(File)
-
     /**
      * Persist given object.
      * 
      * @param object Object to persist.
      */
     public static void save(Object object) {
-        SessionFactory sessionFactory = Persist.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.save(object);
-        session.flush();
-        session.close();
-        sessionFactory.close();
+        Persist.append(object, Action.SAVE);
     } // static void save(Object)
+
+    /**
+     * Delete persisted object.
+     *
+     * @param object Object to delete.
+     */
+    public static void delete(Object object) {
+        Persist.append(object, Action.DELETE);
+    } // static void delete(Object)
 
     /**
      * Get persisted objects of the given class.
@@ -53,41 +49,50 @@ public class Persist {
      * @return List of persisted clazz objects.
      */
     public static List get(Class clazz) {
-        return Persist.getCriteria(clazz).list();
+        SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
+        Session session = sessionFactory.openSession();
+        List result = session.createCriteria(clazz).list();
+        session.close();
+        sessionFactory.close();
+        return result;
     } // get(Class)
 
     /**
      * Get an ordered list of objects of the given class.
      *
      * @param clazz Class of the objects to get.
-     * @param orderField Ordering field of the list.
+     * @param field Ordering field of the list.
      * @return Ordered list of persisted clazz objects.
      */
-    public static List get(Class clazz, String orderField) {
-        Criteria criteria = Persist.getCriteria(clazz);
-        criteria.addOrder(Order.asc(orderField));
-        return criteria.list();
+    public static List get(Class clazz, Field field) {
+        SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(clazz);
+        criteria.addOrder(Order.asc(field.getName()));
+        List result = criteria.list();
+        session.close();
+        sessionFactory.close();
+        return result;
     } // get(Class, String)
 
-    /**
-     * Get session factory (default one if configFile is not setted).
-     * 
-     * @return session factory.
-     */
-    private static SessionFactory getSessionFactory() {
-        if (Persist.configFile == null) {
-            return HibernateUtil.getSessionFactory();
-        } // if
-        return HibernateUtil.getSessionFactory(Persist.configFile);
-    } // static SessionFactory getSessionFactory()
+    private static void append(Object object, Action action) {
+        SessionFactory sessionFactory =Persist.getSessionFactory(object.getClass());
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        switch (action) {
+            case SAVE:
+                session.save(object);
+            case DELETE:
+                session.delete(object);
+        } // switch
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+    }
 
-    /**
-     * Get criteria on the given class.
-     *
-     * @param clazz Class aimed by criteria.
-     * @return Criteria on clazz.
-     */
-    private static Criteria getCriteria(Class clazz) {
-        return Persist.getSessionFactory().openSession().createCriteria(clazz);
-    } // static Criteria getCriteria(Class)
+    private static SessionFactory getSessionFactory(Class clazz) {
+        AnnotationConfiguration annotationConfiguration = new AnnotationConfiguration();
+        annotationConfiguration.addClass(clazz);
+        return annotationConfiguration.configure().buildSessionFactory();
+    }
 }
