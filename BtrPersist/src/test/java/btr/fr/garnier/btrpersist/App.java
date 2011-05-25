@@ -4,7 +4,7 @@ package btr.fr.garnier.btrpersist;
  * Hello world!
  *
  */
-public class AppTest {
+public class App {
 
     public static void main(String[] args) {
         Dummy dummy = new Dummy();

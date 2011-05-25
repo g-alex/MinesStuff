@@ -11,6 +11,8 @@
 
         <!-- Création automatique du schéma de table à persister -->
         <property name="hibernate.hbm2ddl.auto">update</property>
-
+        
+        <property name ="hibernate.show_sql">true</property>
+        
     </session-factory>
 </hibernate-configuration>

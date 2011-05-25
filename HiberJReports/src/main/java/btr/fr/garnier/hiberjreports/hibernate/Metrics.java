@@ -30,6 +30,24 @@ public class Metrics implements Serializable {
     private double maxRam;
     private double avgRam;
 
+    public void setAttributes(Object[] objects) {
+        try {
+            this.type = objects[0].toString();
+            this.machine = objects[1].toString();
+            this.minWatt = (Double) objects[2];
+            this.maxWatt = (Double) objects[3];
+            this.avgWatt = (Double) objects[4];
+            this.minCpu = (Double) objects[5];
+            this.maxCpu = (Double) objects[6];
+            this.avgCpu = (Double) objects[7];
+            this.minRam = (Double) objects[8];
+            this.maxRam = (Double) objects[9];
+            this.avgRam = (Double) objects[10];
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    }
+
     public double getAvgCpu() {
         return avgCpu;
     }

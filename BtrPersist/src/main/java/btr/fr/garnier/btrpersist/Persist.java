@@ -4,7 +4,6 @@
  */
 package btr.fr.garnier.btrpersist;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -13,13 +12,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 
 /**
  * Abstracted hibernate-based persistence interface.
  *
- * @see java.io.File
+ * @see java.lang.Class
+ * @see java.lang.reflect.Field
  * @see java.util.List
- * @see org.hibernate.Criteria
  * @author agarnier
  */
 public class Persist {
@@ -75,24 +76,28 @@ public class Persist {
         return result;
     } // get(Class, String)
 
+    public static PersistSession openSession(Class clazz) {
+        return new PersistSession(clazz);
+    }
+
     private static void append(Object object, Action action) {
-        SessionFactory sessionFactory =Persist.getSessionFactory(object.getClass());
+        SessionFactory sessionFactory = Persist.getSessionFactory(object.getClass());
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         switch (action) {
             case SAVE:
                 session.save(object);
+                break;
             case DELETE:
                 session.delete(object);
+                break;
         } // switch
         transaction.commit();
         session.close();
         sessionFactory.close();
     }
 
-    private static SessionFactory getSessionFactory(Class clazz) {
-        AnnotationConfiguration annotationConfiguration = new AnnotationConfiguration();
-        annotationConfiguration.addClass(clazz);
-        return annotationConfiguration.configure().buildSessionFactory();
+    static SessionFactory getSessionFactory(Class clazz) {
+        return new AnnotationConfiguration().addAnnotatedClass(clazz).configure().buildSessionFactory();
     }
 }

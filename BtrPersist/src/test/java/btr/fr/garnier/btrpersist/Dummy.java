@@ -22,8 +22,34 @@ public class Dummy implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    public long getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Dummy{" + "id=" + id + '}';
     } // String toString()
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Dummy other = (Dummy) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
 }
