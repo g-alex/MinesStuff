@@ -6,6 +6,7 @@ package btr.fr.garnier.btrpersist;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -76,8 +77,25 @@ public class Persist {
         return result;
     } // get(Class, String)
 
-    public static PersistSession openSession(Class clazz) {
-        return new PersistSession(clazz);
+    /**
+     * Select given fields on objects of the given class.
+     *
+     * @param clazz Class to select on.
+     * @param fields Maps of fields and operation done on it.
+     * @return A list of fields selected on persisted clazz objects.
+     */
+    public static List select(Class clazz, Map<Field, SelectOperation> fields) {
+        SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
+        Session session = sessionFactory.openSession();
+        ProjectionList projectionList = Projections.projectionList();
+        for (Map.Entry<Field, SelectOperation> entry : fields.entrySet()) {
+            projectionList = entry.getValue().getProjection(projectionList, entry.getKey());
+        } // for
+        Criteria criteria = session.createCriteria(clazz).setProjection(projectionList);
+        List result = criteria.list();
+        session.close();
+        sessionFactory.close();
+        return result;
     }
 
     private static void append(Object object, Action action) {
@@ -97,7 +115,7 @@ public class Persist {
         sessionFactory.close();
     }
 
-    static SessionFactory getSessionFactory(Class clazz) {
+    private static SessionFactory getSessionFactory(Class clazz) {
         return new AnnotationConfiguration().addAnnotatedClass(clazz).configure().buildSessionFactory();
     }
 }

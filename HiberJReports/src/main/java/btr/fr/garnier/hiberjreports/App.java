@@ -1,11 +1,15 @@
 package btr.fr.garnier.hiberjreports;
 
+import btr.fr.garnier.hiberjreports.hibernate.SelectFilter;
 import btr.fr.garnier.btrpersist.Persist;
-import btr.fr.garnier.btrpersist.PersistSession;
+import btr.fr.garnier.btrpersist.SelectOperation;
 import btr.fr.garnier.hiberjreports.hibernate.MachineConsumption;
 import btr.fr.garnier.hiberjreports.hibernate.Metrics;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -17,8 +21,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 
 /**
  * Reports generation application based on JasperReports & iReport.
@@ -47,49 +49,35 @@ public class App {
 
     } // static void maint(String[])
 
-    private static ProjectionList addMinMaxAvg(ProjectionList origin, String field) {
-        String Capsed = "" + Character.toUpperCase(field.charAt(0)) + field.substring(1);
-        return origin.add(Projections.alias(Projections.min(field), "min" + Capsed)).
-                add(Projections.alias(Projections.max(field), "max" + Capsed)).
-                add(Projections.alias(Projections.avg(field), "avg" + Capsed));
-    }
+    private static List<Metrics> getPersistedMetrics() throws NoSuchFieldException {
+        Map<Field, SelectOperation> allFields = new LinkedHashMap<Field, SelectOperation>();
+        allFields.put(MachineConsumption.class.getDeclaredField("category"), SelectOperation.IDGROUP);
+        allFields.putAll(App.addSelOp(SelectOperation.MMA, "watt", "cpu", "ram"));
 
-    private static List<Metrics> getPersistedMetrics() {
-        PersistSession persistSession = Persist.openSession(MachineConsumption.class);
-        List<Object[]> brutList = persistSession.createCriteria().setProjection(Projections.projectionList().
-                add(Projections.groupProperty("category"), "type").
-                add(Projections.property("category"), "machine").
-                add(Projections.alias(Projections.min("watt"), "minWatt")).
-                add(Projections.alias(Projections.max("watt"), "maxWatt")).
-                add(Projections.alias(Projections.avg("watt"), "avgWatt")).
-                add(Projections.alias(Projections.min("cpu"), "minCpu")).
-                add(Projections.alias(Projections.max("cpu"), "maxCpu")).
-                add(Projections.alias(Projections.avg("cpu"), "avgCpu")).
-                add(Projections.alias(Projections.min("ram"), "minRam")).
-                add(Projections.alias(Projections.max("ram"), "maxRam")).
-                add(Projections.alias(Projections.avg("ram"), "avgRam"))).list();
-        brutList.addAll(persistSession.createCriteria().setProjection(Projections.projectionList().
-                add(Projections.alias(Projections.property("category"), "type")).
-                add(Projections.alias(Projections.groupProperty("nom"), "machine")).
-                add(Projections.alias(Projections.min("watt"), "minWatt")).
-                add(Projections.alias(Projections.max("watt"), "maxWatt")).
-                add(Projections.alias(Projections.avg("watt"), "avgWatt")).
-                add(Projections.alias(Projections.min("cpu"), "minCpu")).
-                add(Projections.alias(Projections.max("cpu"), "maxCpu")).
-                add(Projections.alias(Projections.avg("cpu"), "avgCpu")).
-                add(Projections.alias(Projections.min("ram"), "minRam")).
-                add(Projections.alias(Projections.max("ram"), "maxRam")).
-                add(Projections.alias(Projections.avg("ram"), "avgRam"))).list());
-        List<Metrics> metricsList = App.parseMetrics(brutList);
-        persistSession.close();
-        return metricsList;
+        Map<Field, SelectOperation> eachFields = new LinkedHashMap<Field, SelectOperation>();
+        eachFields.put(MachineConsumption.class.getDeclaredField("category"), SelectOperation.IDENT);
+        eachFields.put(MachineConsumption.class.getDeclaredField("nom"), SelectOperation.GROUP);
+        eachFields.putAll(App.addSelOp(SelectOperation.MMA, "watt", "cpu", "ram"));
+
+        List parsedMetrics = parseMetrics(Persist.select(MachineConsumption.class, allFields), SelectFilter.ALL);
+        parsedMetrics.addAll(parseMetrics(Persist.select(MachineConsumption.class, eachFields), SelectFilter.EACH));
+        return parsedMetrics;
     } // List<Metrics> getMetrics()
 
-    private static List<Metrics> parseMetrics(List<Object[]> list) {
+    private static Map<Field, SelectOperation> addSelOp(SelectOperation selectOperation, String... fields)
+            throws NoSuchFieldException {
+        Map<Field, SelectOperation> selectFieldsMap = new LinkedHashMap<Field, SelectOperation>();
+        for (String field : fields) {
+            selectFieldsMap.put(MachineConsumption.class.getDeclaredField(field), selectOperation);
+        } // for
+        return selectFieldsMap;
+    } // Map<Field, SelectOperation> addMinMaxAvg(Map<Field, SelectOperation>, String...)
+
+    private static List<Metrics> parseMetrics(List<Object[]> list, SelectFilter select) {
         List<Metrics> metricsList = new ArrayList<Metrics>();
         for (Object[] objects : list) {
             Metrics metrics = new Metrics();
-            metrics.setAttributes(objects);
+            metrics.setAttributes(objects, select);
             metricsList.add(metrics);
         } // for
         return metricsList;
