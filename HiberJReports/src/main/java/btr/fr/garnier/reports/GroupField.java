@@ -13,16 +13,16 @@ enum GroupField {
     CATEG {
 
         String categoryToType(String category) {
-            return "ALL " + category + "S";
+            return "All " + category + "s";
         } // CATEG: String categoryToType(String)
 
         String nameToMachine(String name) {
-            return name + "S";
+            return name + "s";
         } // CATEG: String nameToMachine(String)
     }, NAME {
 
         String categoryToType(String category) {
-            return "EACH " + category;
+            return "Each " + category;
         } // NAME: String categoryToType(String)
 
         String nameToMachine(String name) {

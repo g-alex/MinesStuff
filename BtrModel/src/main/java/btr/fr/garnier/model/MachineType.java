@@ -5,10 +5,17 @@
 package btr.fr.garnier.model;
 
 /**
+ * Enumeration of different machines types.
  *
  * @author agarnier
  */
 public enum MachineType {
 
-    SERVER, VM
+    SERVER {
+
+        @Override
+        public String toString() {
+            return "Server";
+        }
+    }, VM;
 }
