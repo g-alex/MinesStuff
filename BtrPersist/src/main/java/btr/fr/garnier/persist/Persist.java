@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package btr.fr.garnier.btrpersist;
+package btr.fr.garnier.persist;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -57,7 +57,7 @@ public class Persist {
         session.close();
         sessionFactory.close();
         return result;
-    } // get(Class)
+    } // static List get(Class)
 
     /**
      * Get an ordered list of objects of the given class.
@@ -75,7 +75,7 @@ public class Persist {
         session.close();
         sessionFactory.close();
         return result;
-    } // get(Class, String)
+    } // static List get(Class, String)
 
     /**
      * Select given fields on objects of the given class.
@@ -96,26 +96,19 @@ public class Persist {
         session.close();
         sessionFactory.close();
         return result;
-    }
+    } // static List select(Class, Map<Field, SelectOperation>)
 
     private static void append(Object object, Action action) {
         SessionFactory sessionFactory = Persist.getSessionFactory(object.getClass());
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        switch (action) {
-            case SAVE:
-                session.save(object);
-                break;
-            case DELETE:
-                session.delete(object);
-                break;
-        } // switch
+        action.doIt(session, object);
         transaction.commit();
         session.close();
         sessionFactory.close();
-    }
+    } // static void append(Object, Action)
 
     private static SessionFactory getSessionFactory(Class clazz) {
         return new AnnotationConfiguration().addAnnotatedClass(clazz).configure().buildSessionFactory();
-    }
+    } // static SessionFactory getSessionFactory(Class)
 }

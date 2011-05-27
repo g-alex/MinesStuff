@@ -1,10 +1,8 @@
-package btr.fr.garnier.hiberjreports;
+package btr.fr.garnier.reports;
 
-import btr.fr.garnier.hiberjreports.hibernate.SelectFilter;
-import btr.fr.garnier.btrpersist.Persist;
-import btr.fr.garnier.btrpersist.SelectOperation;
-import btr.fr.garnier.hiberjreports.hibernate.MachineConsumption;
-import btr.fr.garnier.hiberjreports.hibernate.Metrics;
+import btr.fr.garnier.persist.Persist;
+import btr.fr.garnier.persist.SelectOperation;
+import btr.fr.garnier.model.MachineConsumption;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -49,22 +47,22 @@ public class App {
 
     } // static void maint(String[])
 
-    private static List<Metrics> getPersistedMetrics() throws NoSuchFieldException {
+    private static List<Metric> getPersistedMetrics() throws NoSuchFieldException {
         Map<Field, SelectOperation> allFields = new LinkedHashMap<Field, SelectOperation>();
         allFields.put(MachineConsumption.class.getDeclaredField("category"), SelectOperation.IDGROUP);
-        allFields.putAll(App.addSelOp(SelectOperation.MMA, "watt", "cpu", "ram"));
+        allFields.putAll(App.addSelField(SelectOperation.MMA, "watt", "cpu", "ram"));
 
         Map<Field, SelectOperation> eachFields = new LinkedHashMap<Field, SelectOperation>();
         eachFields.put(MachineConsumption.class.getDeclaredField("category"), SelectOperation.IDENT);
         eachFields.put(MachineConsumption.class.getDeclaredField("nom"), SelectOperation.GROUP);
-        eachFields.putAll(App.addSelOp(SelectOperation.MMA, "watt", "cpu", "ram"));
+        eachFields.putAll(App.addSelField(SelectOperation.MMA, "watt", "cpu", "ram"));
 
-        List parsedMetrics = parseMetrics(Persist.select(MachineConsumption.class, allFields), SelectFilter.ALL);
-        parsedMetrics.addAll(parseMetrics(Persist.select(MachineConsumption.class, eachFields), SelectFilter.EACH));
+        List parsedMetrics = parseMetrics(Persist.select(MachineConsumption.class, allFields), GroupField.CATEG);
+        parsedMetrics.addAll(parseMetrics(Persist.select(MachineConsumption.class, eachFields), GroupField.NAME));
         return parsedMetrics;
-    } // List<Metrics> getMetrics()
+    } // List<Metric> getMetrics()
 
-    private static Map<Field, SelectOperation> addSelOp(SelectOperation selectOperation, String... fields)
+    private static Map<Field, SelectOperation> addSelField(SelectOperation selectOperation, String... fields)
             throws NoSuchFieldException {
         Map<Field, SelectOperation> selectFieldsMap = new LinkedHashMap<Field, SelectOperation>();
         for (String field : fields) {
@@ -73,13 +71,28 @@ public class App {
         return selectFieldsMap;
     } // Map<Field, SelectOperation> addMinMaxAvg(Map<Field, SelectOperation>, String...)
 
-    private static List<Metrics> parseMetrics(List<Object[]> list, SelectFilter select) {
-        List<Metrics> metricsList = new ArrayList<Metrics>();
+    private static List<Metric> parseMetrics(List<Object[]> list, GroupField groupField) {
+        List<Metric> metricsList = new ArrayList<Metric>();
         for (Object[] objects : list) {
-            Metrics metrics = new Metrics();
-            metrics.setAttributes(objects, select);
-            metricsList.add(metrics);
+            metricsList.add(buildMetric(objects, groupField));
         } // for
         return metricsList;
-    } // List<Metrics> parseMetrics(List)
+    } // List<Metric> parseMetrics(List)
+
+    private static Metric buildMetric(Object[] objects, GroupField groupField)
+            throws ArrayIndexOutOfBoundsException {
+        Metric metric = new Metric();
+        metric.setType(groupField.categoryToType(objects[0].toString()));
+        metric.setMachine(groupField.nameToMachine(objects[1].toString()));
+        metric.setMinWatt((Double) objects[2]);
+        metric.setMaxWatt((Double) objects[3]);
+        metric.setAvgWatt((Double) objects[4]);
+        metric.setMinCpu((Double) objects[5]);
+        metric.setMaxCpu((Double) objects[6]);
+        metric.setAvgCpu((Double) objects[7]);
+        metric.setMinRam((Double) objects[8]);
+        metric.setMaxRam((Double) objects[9]);
+        metric.setAvgRam((Double) objects[10]);
+        return metric;
+    }
 }

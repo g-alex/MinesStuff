@@ -2,19 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package btr.fr.garnier.hiberjreports.hibernate;
+package btr.fr.garnier.reports;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Mapped entity class to Metrics hibernate table.
+ * Mapped entity class to Metric hibernate table.
  *
  * @author agarnier
  */
 @Entity
-public class Metrics implements Serializable {
+public class Metric implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String type;
@@ -30,22 +30,48 @@ public class Metrics implements Serializable {
     private double maxRam;
     private double avgRam;
 
-    public void setAttributes(Object[] objects, SelectFilter select) {
-        try {
-            this.type = select.typeToString(objects[0].toString());
-            this.machine = select.machineToString(objects[1].toString());
-            this.minWatt = (Double) objects[2];
-            this.maxWatt = (Double) objects[3];
-            this.avgWatt = (Double) objects[4];
-            this.minCpu = (Double) objects[5];
-            this.maxCpu = (Double) objects[6];
-            this.avgCpu = (Double) objects[7];
-            this.minRam = (Double) objects[8];
-            this.maxRam = (Double) objects[9];
-            this.avgRam = (Double) objects[10];
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace(System.err);
-        }
+    public void setAvgCpu(double avgCpu) {
+        this.avgCpu = avgCpu;
+    }
+
+    public void setAvgRam(double avgRam) {
+        this.avgRam = avgRam;
+    }
+
+    public void setAvgWatt(double avgWatt) {
+        this.avgWatt = avgWatt;
+    }
+
+    public void setMachine(String machine) {
+        this.machine = machine;
+    }
+
+    public void setMaxCpu(double maxCpu) {
+        this.maxCpu = maxCpu;
+    }
+
+    public void setMaxRam(double maxRam) {
+        this.maxRam = maxRam;
+    }
+
+    public void setMaxWatt(double maxWatt) {
+        this.maxWatt = maxWatt;
+    }
+
+    public void setMinCpu(double minCpu) {
+        this.minCpu = minCpu;
+    }
+
+    public void setMinRam(double minRam) {
+        this.minRam = minRam;
+    }
+
+    public void setMinWatt(double minWatt) {
+        this.minWatt = minWatt;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public double getAvgCpu() {

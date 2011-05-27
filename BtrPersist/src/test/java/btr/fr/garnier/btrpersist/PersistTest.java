@@ -4,6 +4,7 @@
  */
 package btr.fr.garnier.btrpersist;
 
+import btr.fr.garnier.persist.Persist;
 import org.junit.Test;
 
 /**
