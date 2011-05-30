@@ -9,6 +9,7 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 
 /**
+ * Relevant fields selections.
  *
  * @author agarnier
  */

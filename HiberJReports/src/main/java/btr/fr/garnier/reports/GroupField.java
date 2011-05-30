@@ -5,6 +5,7 @@
 package btr.fr.garnier.reports;
 
 /**
+ * Grouping fields of metrics.
  *
  * @author agarnier
  */

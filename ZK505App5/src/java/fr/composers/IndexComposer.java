@@ -64,7 +64,7 @@ public class IndexComposer extends GenericForwardComposer {
 
     public void onClick$reset(Event event) {
         vncIp.setSelectedItem(noChoice);
-        ((ServletContext) this.application.getNativeContext()).getContext("/guacadev").removeAttribute("host");
+        ((ServletContext) this.application.getNativeContext()).getContext("/guacamole").removeAttribute("host");
         this.guacamole.setSrc(null);
         this.guacamole.invalidate();
     }

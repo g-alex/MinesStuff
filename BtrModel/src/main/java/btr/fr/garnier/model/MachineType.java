@@ -5,7 +5,7 @@
 package btr.fr.garnier.model;
 
 /**
- * Enumeration of different machines types.
+ * Different machines types.
  *
  * @author agarnier
  */

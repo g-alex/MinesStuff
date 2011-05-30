@@ -7,6 +7,7 @@ package btr.fr.garnier.persist;
 import org.hibernate.Session;
 
 /**
+ * Hibernate amending actions.
  *
  * @author agarnier
  */

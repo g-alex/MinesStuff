@@ -12,8 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
+ * Persistable class representing machines consumptions.
  *
- * @author bobi
+ * @author agarnier
  */
 @Entity
 public class MachineConsumption implements Serializable {
@@ -31,9 +32,23 @@ public class MachineConsumption implements Serializable {
     private double cpu;
     private double ram;
 
+    /**
+     * Default constructor, required by javax.persistence.Entity
+     */
     public MachineConsumption() {
+        super();
     }
 
+    /**
+     * Setting constructor
+     *
+     * @param category Machine category (Server, VM, etc)
+     * @param time Data timestamp
+     * @param nom Machine name
+     * @param watt Watt consumption value
+     * @param cpu CPU consumption value
+     * @param ram RAM consumption value
+     */
     public MachineConsumption(MachineType category, long time, String nom, double watt, double cpu, double ram) {
         this.category = category;
         this.time = time;
