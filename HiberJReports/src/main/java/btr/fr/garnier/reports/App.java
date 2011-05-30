@@ -81,18 +81,17 @@ public class App {
 
     private static Metric buildMetric(Object[] objects, GroupField groupField)
             throws ArrayIndexOutOfBoundsException {
-        Metric metric = new Metric();
-        metric.setType(groupField.categoryToType(objects[0].toString()));
-        metric.setMachine(groupField.nameToMachine(objects[1].toString()));
-        metric.setMinWatt((Double) objects[2]);
-        metric.setMaxWatt((Double) objects[3]);
-        metric.setAvgWatt((Double) objects[4]);
-        metric.setMinCpu((Double) objects[5]);
-        metric.setMaxCpu((Double) objects[6]);
-        metric.setAvgCpu((Double) objects[7]);
-        metric.setMinRam((Double) objects[8]);
-        metric.setMaxRam((Double) objects[9]);
-        metric.setAvgRam((Double) objects[10]);
-        return metric;
+        return new Metric(
+                groupField.categoryToType(objects[0].toString()),
+                groupField.nameToMachine(objects[1].toString()),
+                (Double) objects[2],
+                (Double) objects[3],
+                (Double) objects[4],
+                (Double) objects[5],
+                (Double) objects[6],
+                (Double) objects[7],
+                (Double) objects[8],
+                (Double) objects[9],
+                (Double) objects[10]);
     }
 }

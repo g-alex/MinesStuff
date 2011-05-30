@@ -4,21 +4,14 @@
  */
 package btr.fr.garnier.reports;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /**
  * Mapped entity class to Metric hibernate table.
  *
  * @author agarnier
  */
-@Entity
-public class Metric implements Serializable {
+public class Metric {
 
-    private static final long serialVersionUID = 1L;
     private String type;
-    @Id
     private String machine;
     private double minWatt;
     private double maxWatt;
@@ -30,48 +23,18 @@ public class Metric implements Serializable {
     private double maxRam;
     private double avgRam;
 
-    public void setAvgCpu(double avgCpu) {
-        this.avgCpu = avgCpu;
-    }
-
-    public void setAvgRam(double avgRam) {
-        this.avgRam = avgRam;
-    }
-
-    public void setAvgWatt(double avgWatt) {
-        this.avgWatt = avgWatt;
-    }
-
-    public void setMachine(String machine) {
-        this.machine = machine;
-    }
-
-    public void setMaxCpu(double maxCpu) {
-        this.maxCpu = maxCpu;
-    }
-
-    public void setMaxRam(double maxRam) {
-        this.maxRam = maxRam;
-    }
-
-    public void setMaxWatt(double maxWatt) {
-        this.maxWatt = maxWatt;
-    }
-
-    public void setMinCpu(double minCpu) {
-        this.minCpu = minCpu;
-    }
-
-    public void setMinRam(double minRam) {
-        this.minRam = minRam;
-    }
-
-    public void setMinWatt(double minWatt) {
-        this.minWatt = minWatt;
-    }
-
-    public void setType(String type) {
+    Metric(String type, String machine, double minWatt, double maxWatt, double avgWatt, double minCpu, double maxCpu, double avgCpu, double minRam, double maxRam, double avgRam) {
         this.type = type;
+        this.machine = machine;
+        this.minWatt = minWatt;
+        this.maxWatt = maxWatt;
+        this.avgWatt = avgWatt;
+        this.minCpu = minCpu;
+        this.maxCpu = maxCpu;
+        this.avgCpu = avgCpu;
+        this.minRam = minRam;
+        this.maxRam = maxRam;
+        this.avgRam = avgRam;
     }
 
     public double getAvgCpu() {
@@ -118,12 +81,91 @@ public class Metric implements Serializable {
         return type;
     }
 
-    @Override
-    public String toString() {
-        return "MachineConsumption{" + "type=" + type + ", machine=" + machine
-                + ", minWatt=" + minWatt + ", maxWatt=" + maxWatt
-                + ", avgWatt=" + avgWatt + ", minCpu=" + minCpu + ", maxCpu="
-                + maxCpu + ", avgCpu=" + avgCpu + ", minRam=" + minRam
-                + ", maxRam=" + maxRam + ", avgRam=" + avgRam + '}';
-    }
+//    void setAvgCpu(double avgCpu) {
+//        this.avgCpu = avgCpu;
+//    }
+//
+//    void setAvgRam(double avgRam) {
+//        this.avgRam = avgRam;
+//    }
+//
+//    void setAvgWatt(double avgWatt) {
+//        this.avgWatt = avgWatt;
+//    }
+//
+//    void setMachine(String machine) {
+//        this.machine = machine;
+//    }
+//
+//    void setMaxCpu(double maxCpu) {
+//        this.maxCpu = maxCpu;
+//    }
+//
+//    void setMaxRam(double maxRam) {
+//        this.maxRam = maxRam;
+//    }
+//
+//    void setMaxWatt(double maxWatt) {
+//        this.maxWatt = maxWatt;
+//    }
+//
+//    void setMinCpu(double minCpu) {
+//        this.minCpu = minCpu;
+//    }
+//
+//    void setMinRam(double minRam) {
+//        this.minRam = minRam;
+//    }
+//
+//    void setMinWatt(double minWatt) {
+//        this.minWatt = minWatt;
+//    }
+//
+//    void setType(String type) {
+//        this.type = type;
+//    }
+//
+//    double getAvgCpu() {
+//        return avgCpu;
+//    }
+//
+//    double getAvgRam() {
+//        return avgRam;
+//    }
+//
+//    double getAvgWatt() {
+//        return avgWatt;
+//    }
+//
+//    String getMachine() {
+//        return machine;
+//    }
+//
+//    double getMaxCpu() {
+//        return maxCpu;
+//    }
+//
+//    double getMaxRam() {
+//        return maxRam;
+//    }
+//
+//    double getMaxWatt() {
+//        return maxWatt;
+//    }
+//
+//    double getMinCpu() {
+//        return minCpu;
+//    }
+//
+//    double getMinRam() {
+//        return minRam;
+//    }
+//
+//    double getMinWatt() {
+//        return minWatt;
+//    }
+//
+//    String getType() {
+//        return type;
+//    }
 }

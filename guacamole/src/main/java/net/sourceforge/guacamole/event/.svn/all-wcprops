@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/event
+END
+EventHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/event/EventHandler.java
+END
+Event.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/event/Event.java
+END
+PointerEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/event/PointerEvent.java
+END
+EventQueue.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/event/EventQueue.java
+END
+KeyEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/event/KeyEvent.java
+END

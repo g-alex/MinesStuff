@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/instruction/framebuffer
+END
+CursorInstruction.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/instruction/framebuffer/CursorInstruction.java
+END
+PNGInstruction.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/instruction/framebuffer/PNGInstruction.java
+END
+PNGImage.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/instruction/framebuffer/PNGImage.java
+END
+CopyRectInstruction.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/instruction/framebuffer/CopyRectInstruction.java
+END
+DrawRectInstruction.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/entropy/!svn/ver/2194/sandboxes/agarnier/guacamole/src/main/java/net/sourceforge/guacamole/instruction/framebuffer/DrawRectInstruction.java
+END
