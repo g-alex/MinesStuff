@@ -84,11 +84,11 @@ public class Persist {
      * @param fields Maps of fields and operation done on it.
      * @return A list of fields selected on persisted clazz objects.
      */
-    public static List select(Class clazz, Map<Field, SelectOperation> fields) {
+    public static List select(Class clazz, Map<Field, Selection> fields) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
         ProjectionList projectionList = Projections.projectionList();
-        for (Map.Entry<Field, SelectOperation> entry : fields.entrySet()) {
+        for (Map.Entry<Field, Selection> entry : fields.entrySet()) {
             projectionList = entry.getValue().getProjection(projectionList, entry.getKey());
         } // for
         Criteria criteria = session.createCriteria(clazz).setProjection(projectionList);
@@ -96,7 +96,7 @@ public class Persist {
         session.close();
         sessionFactory.close();
         return result;
-    } // static List select(Class, Map<Field, SelectOperation>)
+    } // static List select(Class, Map<Field, Selection>)
 
     private static void append(Object object, Action action) {
         SessionFactory sessionFactory = Persist.getSessionFactory(object.getClass());

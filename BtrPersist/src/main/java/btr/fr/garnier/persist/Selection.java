@@ -12,7 +12,7 @@ import org.hibernate.criterion.Projections;
  *
  * @author agarnier
  */
-public enum SelectOperation {
+public enum Selection {
 
     IDENT {
 
