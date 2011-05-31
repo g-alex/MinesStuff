@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package btr.fr.garnier.reports;
+package btr.fr.garnier.model;
 
 /**
  * Metrics on machine consumptions, to be parsed in JasperReports.

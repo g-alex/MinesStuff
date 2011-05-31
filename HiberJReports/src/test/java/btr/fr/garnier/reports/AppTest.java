@@ -1,4 +1,4 @@
-package fr.garnier.hiberjreports;
+package btr.fr.garnier.reports;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

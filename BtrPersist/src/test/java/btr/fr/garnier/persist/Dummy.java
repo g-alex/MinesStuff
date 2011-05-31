@@ -23,33 +23,33 @@ public class Dummy implements Serializable {
     private long id;
 
     public long getId() {
-        return id;
-    }
+        return this.id;
+    } // long getId()
 
     @Override
     public String toString() {
-        return "Dummy{" + "id=" + id + '}';
+        return "Dummy{" + "id=" + this.id + '}';
     } // String toString()
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        if (object == null) {
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        } // if
+        if (getClass() != object.getClass()) {
             return false;
-        }
-        final Dummy other = (Dummy) obj;
-        if (this.id != other.id) {
+        } // if
+        final Dummy dummy = (Dummy) object;
+        if (this.id != dummy.id) {
             return false;
-        }
+        } // if
         return true;
-    }
+    } // boolean equals(Object)
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
-    }
+    } // int hashCode()
 }

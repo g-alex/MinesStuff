@@ -27,21 +27,21 @@ import org.hibernate.criterion.Projections;
 public class Persist {
 
     /**
-     * Persist given object.
-     * 
-     * @param object Object to persist.
+     * Persist given objects.
+     *
+     * @param objects Objects to persist.
      */
-    public static void save(Object object) {
-        Persist.append(object, Action.SAVE);
+    public static void save(Object... objects) {
+        Persist.append(Action.SAVE, objects);
     } // static void save(Object)
 
     /**
-     * Delete persisted object.
+     * Delete persisted objects.
      *
-     * @param object Object to delete.
+     * @param objects Objects to delete.
      */
-    public static void delete(Object object) {
-        Persist.append(object, Action.DELETE);
+    public static void delete(Object... objects) {
+        Persist.append(Action.DELETE, objects);
     } // static void delete(Object)
 
     /**
@@ -98,11 +98,20 @@ public class Persist {
         return result;
     } // static List select(Class, Map<Field, Selection>)
 
-    private static void append(Object object, Action action) {
-        SessionFactory sessionFactory = Persist.getSessionFactory(object.getClass());
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        action.apply(session, object);
+    private static void append(Action action, Object... objects) {
+        SessionFactory sessionFactory = null;
+        Session session = null;
+        Transaction transaction = null;
+        boolean set = false;
+        for (Object object : objects) {
+            if (!set) {
+                sessionFactory = Persist.getSessionFactory(object.getClass());
+                session = sessionFactory.openSession();
+                transaction = session.beginTransaction();
+                set = true;
+            } // if
+            action.apply(session, object);
+        } // for
         transaction.commit();
         session.close();
         sessionFactory.close();
