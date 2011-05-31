@@ -132,4 +132,4 @@ public class App {
                 (Double) objects[9],
                 (Double) objects[10]);
     } // static Metric buildMetric(Object[], GroupField)
-}
+} // class App

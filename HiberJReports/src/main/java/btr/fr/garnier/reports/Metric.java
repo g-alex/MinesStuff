@@ -5,7 +5,8 @@
 package btr.fr.garnier.reports;
 
 /**
- * Mapped entity class to Metric hibernate table.
+ * Metrics on machine consumptions, to be parsed in JasperReports.
+ * JasperReports need the getters, thus the class, to be public, so they are.
  *
  * @author agarnier
  */
@@ -23,6 +24,21 @@ public class Metric {
     private double maxRam;
     private double avgRam;
 
+    /**
+     * Setting constructor
+     *
+     * @param type Machine category (Server, VM, etc)
+     * @param machine Machine name
+     * @param minWatt Minimum watt consumption value
+     * @param maxWatt Maximum watt consumption value
+     * @param avgWatt Average watt consumption value
+     * @param minCpu Minimum CPU consumption value
+     * @param maxCpu Maximum CPU consumption value
+     * @param avgCpu Average CPU consumption value
+     * @param minRam Minimum RAM consumption value
+     * @param maxRam Maximum RAM consumption value
+     * @param avgRam Average RAM consumption value
+     */
     Metric(String type, String machine, double minWatt, double maxWatt, double avgWatt, double minCpu, double maxCpu, double avgCpu, double minRam, double maxRam, double avgRam) {
         this.type = type;
         this.machine = machine;
@@ -38,46 +54,46 @@ public class Metric {
     }
 
     public double getAvgCpu() {
-        return avgCpu;
+        return this.avgCpu;
     }
 
     public double getAvgRam() {
-        return avgRam;
+        return this.avgRam;
     }
 
     public double getAvgWatt() {
-        return avgWatt;
+        return this.avgWatt;
     }
 
     public String getMachine() {
-        return machine;
+        return this.machine;
     }
 
     public double getMaxCpu() {
-        return maxCpu;
+        return this.maxCpu;
     }
 
     public double getMaxRam() {
-        return maxRam;
+        return this.maxRam;
     }
 
     public double getMaxWatt() {
-        return maxWatt;
+        return this.maxWatt;
     }
 
     public double getMinCpu() {
-        return minCpu;
+        return this.minCpu;
     }
 
     public double getMinRam() {
-        return minRam;
+        return this.minRam;
     }
 
     public double getMinWatt() {
-        return minWatt;
+        return this.minWatt;
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 }

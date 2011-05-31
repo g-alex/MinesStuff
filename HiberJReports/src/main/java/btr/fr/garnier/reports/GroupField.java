@@ -17,6 +17,7 @@ enum GroupField {
             return "All " + category + "s";
         } // CATEG: String categoryToType(String)
 
+        @Override
         String nameToMachine(String name) {
             return name + "s";
         } // CATEG: String nameToMachine(String)
@@ -25,10 +26,6 @@ enum GroupField {
         String categoryToType(String category) {
             return "Each " + category;
         } // NAME: String categoryToType(String)
-
-        String nameToMachine(String name) {
-            return name;
-        } // NAME: String nameToMachine(String)
     };
 
     /**
@@ -45,5 +42,7 @@ enum GroupField {
      * @param category Origin MachineConsumption field.
      * @return Target metrics machine field.
      */
-    abstract String nameToMachine(String name);
+    String nameToMachine(String name) {
+        return name;
+    } // String categoryToType(String)
 }

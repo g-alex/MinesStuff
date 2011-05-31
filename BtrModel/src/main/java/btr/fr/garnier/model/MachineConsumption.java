@@ -58,56 +58,56 @@ public class MachineConsumption implements Serializable {
         this.ram = ram;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public MachineType getCategory() {
-        return category;
+        return this.category;
+    }
+
+    public double getCpu() {
+        return this.cpu;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public double getRam() {
+        return this.ram;
+    }
+
+    public long getTime() {
+        return this.time;
+    }
+
+    public double getWatt() {
+        return this.watt;
     }
 
     public void setCategory(MachineType category) {
         this.category = category;
     }
 
-    public double getCpu() {
-        return cpu;
-    }
-
     public void setCpu(double cpu) {
         this.cpu = cpu;
     }
 
-    public String getNom() {
-        return nom;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-    public double getRam() {
-        return ram;
-    }
-
     public void setRam(double ram) {
         this.ram = ram;
     }
 
-    public long getTime() {
-        return time;
-    }
-
     public void setTime(long time) {
         this.time = time;
-    }
-
-    public double getWatt() {
-        return watt;
     }
 
     public void setWatt(double watt) {
@@ -116,6 +116,7 @@ public class MachineConsumption implements Serializable {
 
     @Override
     public String toString() {
-        return "Mesures{" + "category=" + category + ", time=" + time + ", nom=" + nom + ", watt=" + watt + ", cpu=" + cpu + ", ram=" + ram + '}';
+        return "Mesures{" + "category=" + category + ", time=" + time + ", nom="
+                + nom + ", watt=" + watt + ", cpu=" + cpu + ", ram=" + ram + '}';
     }
 }

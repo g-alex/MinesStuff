@@ -102,7 +102,7 @@ public class Persist {
         SessionFactory sessionFactory = Persist.getSessionFactory(object.getClass());
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        action.doIt(session, object);
+        action.apply(session, object);
         transaction.commit();
         session.close();
         sessionFactory.close();

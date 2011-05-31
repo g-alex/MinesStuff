@@ -7,7 +7,7 @@ package btr.fr.garnier.persist;
 import org.hibernate.Session;
 
 /**
- * Hibernate amending actions.
+ * Hibernate amending operations.
  *
  * @author agarnier
  */
@@ -15,15 +15,21 @@ enum Action {
 
     SAVE {
 
-        void doIt(Session session, Object object) {
+        void apply(Session session, Object object) {
             session.save(object);
         }
     }, DELETE {
 
-        void doIt(Session session, Object object) {
+        void apply(Session session, Object object) {
             session.delete(object);
         }
     };
 
-    abstract void doIt(Session session, Object object);
+    /**
+     * Apply action.
+     *
+     * @param session Session where to apply the action.
+     * @param object Object on which the action is applied.
+     */
+    abstract void apply(Session session, Object object);
 }

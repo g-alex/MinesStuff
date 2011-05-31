@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package btr.fr.garnier.btrpersist;
+package btr.fr.garnier.persist;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
