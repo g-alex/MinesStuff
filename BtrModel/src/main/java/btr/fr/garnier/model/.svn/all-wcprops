@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrModel/src/main/java/btr/fr/garnier/model
+END
+GroupField.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrModel/src/main/java/btr/fr/garnier/model/GroupField.java
+END
+Model.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrModel/src/main/java/btr/fr/garnier/model/Model.java
+END
+MachineConsumption.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrModel/src/main/java/btr/fr/garnier/model/MachineConsumption.java
+END
+Metric.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrModel/src/main/java/btr/fr/garnier/model/Metric.java
+END
+MachineType.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrModel/src/main/java/btr/fr/garnier/model/MachineType.java
+END

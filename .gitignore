@@ -1,4 +1,5 @@
 */target/*
+.svn
 */build*
 guacamole-src/*
 Icanhazcheezburger/*
@@ -8,4 +9,4 @@ Icanhazcheezburger/*
 *.xls
 *.jasper
 *.jar
-*/.svn/
+

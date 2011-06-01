@@ -36,9 +36,9 @@
             <version>1.0.1B</version>
         </dependency>
         <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>mysql-connector-java-5.1.6-bin</artifactId>
-            <version>SNAPSHOT</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.9</version>
         </dependency>
     </dependencies>
     <build>
