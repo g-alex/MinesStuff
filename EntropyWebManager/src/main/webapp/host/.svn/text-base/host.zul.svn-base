@@ -1,0 +1,53 @@
+<window id="window" apply="fr.chavrier.entropyWebManager.composers.HostComposer" border="0" height="100%" width="100%">
+	<timer id="updateTimer" delay="1000" repeats="true">
+    </timer>
+    <tablelayout columns="2" height="100%" width="100%">
+	    <tablechildren colspan="2" height="5%">
+		        <panel border="0" height="100%">
+		            <panelchildren>
+		                <hlayout>
+		                  	<button id="startBtn" label="start"></button>
+							<button id="stopBtn" label="stop" ></button>
+							<button id="suspendBtn" label="suspend" ></button>
+							<button id="resumeBtn" label="resume" ></button>
+							<button id="migrateBtn" label="migrate" ></button>
+							<button id="deleteBtn" label="delete" ></button>
+		                </hlayout>   
+		            </panelchildren>
+		        </panel>
+	    </tablechildren>
+	    <tablechildren width="50%" height="45%">
+	        <panel id="cpuChartPanel" border="normal" height="100%" width="100%">
+	            <panelchildren>
+	                <flashchart  width="100%" height="100%" id="cpuChart">
+					</flashchart>
+	            </panelchildren>
+	        </panel>
+	    </tablechildren>
+	    <tablechildren width="50%" height="45%">
+	        <panel border="normal" height="100%" width="100%">
+	            <panelchildren>
+                    <flashchart  width="100%" height="100%" id="ramChart">
+					</flashchart>
+	            </panelchildren>
+	        </panel>
+	    </tablechildren>
+	    <tablechildren colspan="2" width="100%" height="50%">
+	        <panel border="normal" height="100%" width="100%">
+	            <panelchildren>
+	            	<button id="createVMBtn" label="Create new VM"
+						autodisable="self">
+					</button>
+                    <listbox id="vmsLB">
+								<listhead>
+									<listheader>Name</listheader>
+									<listheader>CPU</listheader>
+									<listheader>RAM</listheader>
+									<listheader>State</listheader>
+								</listhead>
+							</listbox>
+	            </panelchildren>
+	        </panel>
+	    </tablechildren>
+    </tablelayout>
+</window>
