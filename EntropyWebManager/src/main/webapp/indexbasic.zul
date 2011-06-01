@@ -1,0 +1,79 @@
+<?page title="Entropy Web Manager"?>
+<window id="indexWindow" border="0"
+	apply="fr.chavrier.entropyWebManager.composers.IndexComposer">
+    <vbox height="100%" width="100%" heights="10%,70%,20%">
+    	<hbox width="100%" widths="100%">
+    		<image id="logo" src="./Images/entropyLogo.jpg" width="100px" height="100px"/>
+    	</hbox>
+    	<hbox width="100%" widths="20%,80%" style="overflow:auto">
+	    	<div style="overflow:auto">
+	    		 <tree id="tree" height="100%" />
+	    	</div>
+	    	<div style="overflow:auto">
+	    		<tabbox height="100%" width="100%" id="tb" >
+	                <tabs>
+	                    <tab id="monitoredItem" label="Home" />
+	                    <tab label="BtrScript Console" />
+	                    <tab label="Entropy control" />
+	                    <tab id="VNCTab" label="VNC Viewer" />
+	                </tabs>
+	                <tabpanels>
+	                    <tabpanel>
+	                        <include id="include" src="./error404.zul"/>
+	                    </tabpanel>
+	                    <tabpanel >
+	                        <vlayout id="consoleOutput"  height="90%" width="100%" style="overflow:auto;"/>
+	                        <textbox id="consoleInput" ctrlKeys="#up#down" height="20px" width="100%" />
+	                    </tabpanel>
+	                    <tabpanel>
+	                        <panel title="Entropy mode" border="normal"
+								style="margin-bottom:5px">
+	                            <panelchildren>
+	                                <radiogroup onCheck="">
+	                                    <vbox>
+	                                        <radio id="stopRadio" label="Stop" />
+	                                        <radio id="semiRadio" label="Semi-auto" />
+	                                        <radio id="autoRadio" label="Auto" />
+	                                    </vbox>
+	                                </radiogroup>
+	                            </panelchildren>
+	                        </panel>
+	                        <timer id="timer" running="true" delay="1000"
+								repeats="true">
+	                        </timer>
+	                        <panel title="Reconfiguration plan"
+								border="normal">
+	                            <panelchildren>
+	                                <label id="planLabel" />
+	                                <hbox>
+	                                    <button id="notApplyBtn" label="Do NOT apply">
+	                                    </button>
+	                                    <button id="applyBtn" label="Apply">
+	                                    </button>
+	                                </hbox>
+	                            </panelchildren>
+	                        </panel>
+	                    </tabpanel>
+	                    <tabpanel id="vncViewer">
+	                        <iframe id="guacamole" style="width: 100%; height: 100%; border: 0px;" />
+	                    </tabpanel>
+	                </tabpanels>
+	            </tabbox>
+    		</div>
+    	</hbox>
+    	<hbox width="100%" widths="20%,40%,40%">
+    		<div>
+    		</div>
+    		<panel title="CurrentActions">
+				<panelchildren>
+					<vlayout id="actionVLayout" width="100%" style="overflow:auto"/>
+	            </panelchildren>
+            </panel>
+            <panel title="Logs">
+				<panelchildren>
+					<vlayout id="alertVLayout" width="100%" height="100%" style="overflow:auto"/>
+	            </panelchildren>
+            </panel>
+    	</hbox>
+    </vbox>
+</window>

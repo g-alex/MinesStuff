@@ -1,0 +1,74 @@
+<?page title="BtrView"?>
+<window id="indexWindow" border="0" height="100%" width="100%"
+	apply="fr.chavrier.entropyWebManager.composers.IndexComposer">
+<tablelayout columns="3" height="100%" width="100%">
+    <tablechildren  colspan="3" height="10%">
+        <panel border="0" height="100%">
+            <panelchildren>
+                     <image id="logo" src="./Images/entropyLogo.jpg" width="100px" height="100px"/>
+            </panelchildren>
+        </panel>
+    </tablechildren>
+    <tablechildren  height="70%" width="20%">
+        <panel id="treePanel" border="0" height="100%">
+            <panelchildren style="overflow:auto;">
+	                <tree id="tree" style="border:none"/>
+            </panelchildren>
+         </panel>
+    </tablechildren>
+    <tablechildren  colspan="2" height="70%">
+        <panel border="0" height="100%">
+            <panelchildren>
+               <tabbox height="100%" width="100%" id="tb" >
+	                <tabs>
+	                    <tab id="monitoredItem" label="Home" />
+	                    <tab label="BtrScript Console" />
+	                    <tab id="VNCTab" label="VNC Viewer" />
+	                </tabs>
+	                <tabpanels>
+	                    <tabpanel>
+	                        <include id="include" src="./error404.zul"/>
+	                    </tabpanel>
+	                    <tabpanel >
+	                        <vlayout id="consoleOutput"  height="95%" width="100%" style="overflow:auto;"/>
+	                        <textbox id="consoleInput" ctrlKeys="#up#down" height="4%" width="100%" />
+	                    </tabpanel>
+	                    <tabpanel id="vncViewer">
+	                        <iframe id="guacamole" style="width: 100%; height: 100%; border: 0px;" />
+	                    </tabpanel>
+	                </tabpanels>
+	            </tabbox>
+            </panelchildren>
+         </panel>
+    </tablechildren>
+    <tablechildren height="20%"  width="20%">
+        <panel border="0" height="100%">
+            <panelchildren>
+               <groupbox height="90%" width="94%">
+	                <caption>Informations</caption>
+               </groupbox>
+            </panelchildren> 
+         </panel>
+    </tablechildren>
+    <tablechildren height="20%" width="40%">
+        <panel border="0" height="100%">
+            <panelchildren>
+            	<groupbox height="90%" width="97%">
+	                <caption>Current actions</caption>
+	                <vlayout id="actionVLayout" style="overflow:auto"/>
+               </groupbox>
+            </panelchildren> 
+         </panel>
+    </tablechildren>
+    <tablechildren height="20%" width="40%">
+        <panel border="0" height="100%">
+            <panelchildren>
+            	<groupbox height="90%" width="97%">
+	                <caption>Logs</caption>
+	                <vlayout id="alertVLayout" height="100%" style="overflow:auto"/>
+               </groupbox>
+            </panelchildren> 
+         </panel>
+    </tablechildren>
+</tablelayout>
+</window>
