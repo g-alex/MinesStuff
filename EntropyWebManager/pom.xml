@@ -86,16 +86,18 @@
     </properties>
 
     <repositories>
+        <!-- TODO: Replace this with remote repository for vm* -->
         <repository>
             <id>localRepo</id>
             <url>file:///home/bobi/mvnLocalRepo/</url>
         </repository>
-<!-- TODO: Replace this with non-evaluation one -->
+        <!-- ################################################# -->
+<!-- Maven settings for ZK EE:
+http://books.zkoss.org/wiki/ZK%20Installation%20Guide/Setting%20up%20IDE/Maven/Use%20ZK%20Maven%20Repository#Login_authentication -->
         <repository>
-            <id>ZK PE Evaluation</id>
-            <url>http://mavensync.zkoss.org/zk/pe-eval</url>
+            <id>ZK EE</id>
+            <url>https://maven.zkoss.org/repo/zk/ee</url>
         </repository>
-<!-- ########################################## -->
     </repositories>
     
 </project>
