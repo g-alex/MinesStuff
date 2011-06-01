@@ -34,13 +34,13 @@
         <!-- ZK -->
         <dependency>
             <groupId>org.zkoss.zk</groupId>
-            <artifactId>zk</artifactId>
+            <artifactId>zul</artifactId>
             <version>5.0.6</version>
         </dependency>
         <dependency>
             <groupId>org.zkoss.zk</groupId>
-            <artifactId>zul</artifactId>
-            <version>5.0.6</version>
+            <artifactId>zkex</artifactId>
+            <version>3.6.3</version>
         </dependency>
 
         <!-- Charts -->
@@ -90,6 +90,12 @@
             <id>localRepo</id>
             <url>file:///home/bobi/mvnLocalRepo/</url>
         </repository>
+<!-- TODO: Replace this with non-evaluation one -->
+        <repository>
+            <id>ZK PE Evaluation</id>
+            <url>http://mavensync.zkoss.org/zk/pe-eval</url>
+        </repository>
+<!-- ########################################## -->
     </repositories>
     
 </project>
