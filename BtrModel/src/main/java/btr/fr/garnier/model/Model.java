@@ -19,6 +19,20 @@ import java.util.Map;
 public class Model {
 
     /**
+     * Persist consumptions for given machine type, name and time.
+     *
+     * @param category Machine type.
+     * @param time Consumptions time.
+     * @param name Machine name.
+     * @param watt Watt consumption.
+     * @param cpu CPU consumption.
+     * @param ram RAM consumption.
+     */
+    public static void persistConsumptions(MachineType category, long time, String name, double watt, double cpu, double ram) {
+        Persist.save(new MachineConsumption(category, time, name, watt, cpu, ram));
+    } // static void persistConsumptions(MachineType, long, String, double, double, double)
+
+    /**
      * Select metrics on MachineConsumption through BtrPersist.
      *
      * @return A list of metrics based on persisted machine consumptions in

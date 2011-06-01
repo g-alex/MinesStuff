@@ -4,9 +4,9 @@
  */
 package btr.fr.garnier.model;
 
+import btr.fr.garnier.persist.Persist;
 import java.util.ArrayList;
 import java.util.List;
-import btr.fr.garnier.persist.Persist;
 
 /**
  *
