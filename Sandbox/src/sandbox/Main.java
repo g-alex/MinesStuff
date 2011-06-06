@@ -28,6 +28,7 @@ public class Main {
         Object object = new Integer(1);
         System.out.println(object.getClass());
         Integer loop = 0;
+        hej();
         while (true) {
             A:
             {
@@ -40,6 +41,12 @@ public class Main {
             } // A
         } // while
     } // static void main(String[])
+
+    private static void hej(String... strings) {
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
 
     private static void coucou(Object object) {
         System.out.println("Coucou toi !");

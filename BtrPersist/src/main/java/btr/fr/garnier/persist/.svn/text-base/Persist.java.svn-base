@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 
@@ -22,6 +22,8 @@ import org.hibernate.criterion.Projections;
  * @see java.lang.Class
  * @see java.lang.reflect.Field
  * @see java.util.List
+ * @see org.hibernate.criterion.Criterion
+ * @see org.hibernate.criterion.Restrictions
  * @author agarnier
  */
 public class Persist {
@@ -45,32 +47,43 @@ public class Persist {
     } // static void delete(Object)
 
     /**
-     * Get persisted objects of the given class.
+     * Get a list based on given criterions.
      *
      * @param clazz Class of the objects to get.
-     * @return List of persisted clazz objects.
+     * @param criterions Criterions to apply.
+     * @return List of given class objects.
      */
-    public static List get(Class clazz) {
+    public static List get(Class clazz, Criterion... criterions) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
-        List result = session.createCriteria(clazz).list();
+        Criteria criteria = session.createCriteria(clazz);
+        for (Criterion criterion : criterions) {
+            criteria.add(criterion);
+        } // for
+        List result = criteria.list();
         session.close();
         sessionFactory.close();
         return result;
-    } // static List get(Class)
+    } // static List get(Class, Criterion...)
 
     /**
      * Get an ordered list of objects of the given class.
      *
      * @param clazz Class of the objects to get.
-     * @param field Ordering field of the list.
+     * @param groupField Ordering field of the list.
+     * @param order Ascending or descending order.
+     * @param criterions Criterions to apply.
      * @return Ordered list of persisted clazz objects.
      */
-    public static List get(Class clazz, Field field) {
+    public static List get(Class clazz, Field groupField, Ordering order,
+            Criterion... criterions) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
-        Criteria criteria = session.createCriteria(clazz);
-        criteria.addOrder(Order.asc(field.getName()));
+        Criteria criteria = session.createCriteria(clazz).
+                addOrder(order.get(groupField));
+        for (Criterion criterion : criterions) {
+            criteria.add(criterion);
+        } // for
         List result = criteria.list();
         session.close();
         sessionFactory.close();
@@ -84,14 +97,20 @@ public class Persist {
      * @param fields Maps of fields and operation done on it.
      * @return A list of fields selected on persisted clazz objects.
      */
-    public static List select(Class clazz, Map<Field, Selection> fields) {
+    public static List select(Class clazz, Map<Field, Selection> fields,
+            Criterion... criterions) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
         ProjectionList projectionList = Projections.projectionList();
         for (Map.Entry<Field, Selection> entry : fields.entrySet()) {
-            projectionList = entry.getValue().getProjection(projectionList, entry.getKey());
+            projectionList = entry.getValue().
+                    getProjection(projectionList, entry.getKey());
         } // for
-        Criteria criteria = session.createCriteria(clazz).setProjection(projectionList);
+        Criteria criteria = session.createCriteria(clazz);
+        for (Criterion criterion : criterions) {
+            criteria.add(criterion);
+        } // for
+        criteria.setProjection(projectionList);
         List result = criteria.list();
         session.close();
         sessionFactory.close();
@@ -118,6 +137,7 @@ public class Persist {
     } // static void append(Object, Action)
 
     private static SessionFactory getSessionFactory(Class clazz) {
-        return new AnnotationConfiguration().addAnnotatedClass(clazz).configure().buildSessionFactory();
+        return new AnnotationConfiguration().addAnnotatedClass(clazz).
+                configure().buildSessionFactory();
     } // static SessionFactory getSessionFactory(Class)
 }

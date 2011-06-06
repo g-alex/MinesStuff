@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 93
-/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrPersist/src/main/java/btr/fr/garnier/persist
+/svn/entropy/!svn/ver/2233/sandboxes/agarnier/BtrPersist/src/main/java/btr/fr/garnier/persist
 END
 Selection.java
 K 25
@@ -13,7 +13,13 @@ Persist.java
 K 25
 svn:wc:ra_dav:version-url
 V 106
-/svn/entropy/!svn/ver/2222/sandboxes/agarnier/BtrPersist/src/main/java/btr/fr/garnier/persist/Persist.java
+/svn/entropy/!svn/ver/2235/sandboxes/agarnier/BtrPersist/src/main/java/btr/fr/garnier/persist/Persist.java
+END
+Ordering.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/entropy/!svn/ver/2233/sandboxes/agarnier/BtrPersist/src/main/java/btr/fr/garnier/persist/Ordering.java
 END
 Action.java
 K 25
