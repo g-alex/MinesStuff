@@ -9,3 +9,8 @@ Icanhazcheezburger/*
 *.jasper
 *.jar
 *.svn
+BtrModel/*
+BtrPersist/*
+BtrReports/*
+EntropyWebManager/*
+guacamole/*
