@@ -7,9 +7,7 @@ package btr.fr.garnier.model;
 import btr.fr.garnier.persist.Persist;
 import btr.fr.garnier.persist.Selection;
 import java.lang.reflect.Field;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,11 +40,11 @@ public class Model {
      * @throws NoSuchFieldException
      */
     public static List<Metric> getPersistedMetrics() throws NoSuchFieldException {
-        Map<Field, Selection> allFields = new LinkedHashMap<Field, Selection>();
+        LinkedHashMap<Field, Selection> allFields = new LinkedHashMap<Field, Selection>();
         allFields.put(MachineConsumption.class.getDeclaredField("type"), Selection.IDGROUP);
         allFields.putAll(Model.addSelField(Selection.MMA, "watt", "cpu", "ram"));
 
-        Map<Field, Selection> eachFields = new LinkedHashMap<Field, Selection>();
+        LinkedHashMap<Field, Selection> eachFields = new LinkedHashMap<Field, Selection>();
         eachFields.put(MachineConsumption.class.getDeclaredField("type"), Selection.IDENT);
         eachFields.put(MachineConsumption.class.getDeclaredField("name"), Selection.GROUP);
         eachFields.putAll(Model.addSelField(Selection.MMA, "watt", "cpu", "ram"));

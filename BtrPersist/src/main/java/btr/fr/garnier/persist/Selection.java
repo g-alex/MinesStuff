@@ -17,42 +17,42 @@ public enum Selection {
 
     IDENT {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.property(field.getName()));
-        } // IDENT: ProjectionList getProjection(ProjectionList , Field)
+        } // IDENT: ProjectionList addProjection(ProjectionList , Field)
     }, GROUP {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.groupProperty(field.getName()));
-        } // GROUP: ProjectionList getProjection(ProjectionList , Field)
+        } // GROUP: ProjectionList addProjection(ProjectionList , Field)
     }, IDGROUP {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.property(field.getName())).
                     add(Projections.groupProperty(field.getName()));
-        } // IDGROUP: ProjectionList getProjection(ProjectionList , Field)
+        } // IDGROUP: ProjectionList addProjection(ProjectionList , Field)
     }, MIN {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.min(field.getName()));
-        } // MIN: ProjectionList getProjection(ProjectionList , Field)
+        } // MIN: ProjectionList addProjection(ProjectionList , Field)
     }, MAX {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.max(field.getName()));
-        } // MAX: ProjectionList getProjection(ProjectionList , Field)
+        } // MAX: ProjectionList addProjection(ProjectionList , Field)
     }, AVG {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.avg(field.getName()));
-        } // AVG: ProjectionList getProjection(ProjectionList , Field)
+        } // AVG: ProjectionList addProjection(ProjectionList , Field)
     }, MMA {
 
-        ProjectionList getProjection(ProjectionList projectionList, Field field) {
+        ProjectionList addProjection(ProjectionList projectionList, Field field) {
             return projectionList.add(Projections.min(field.getName())).
                     add(Projections.max(field.getName())).
                     add(Projections.avg(field.getName()));
-        } // MMA: ProjectionList getProjection(ProjectionList , Field)
+        } // MMA: ProjectionList addProjection(ProjectionList , Field)
     };
 
     /**
@@ -62,5 +62,5 @@ public enum Selection {
      * @param field Field on which to apply the projection.
      * @return
      */
-    abstract ProjectionList getProjection(ProjectionList projectionList, Field field);
+    abstract ProjectionList addProjection(ProjectionList projectionList, Field field);
 }

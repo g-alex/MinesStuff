@@ -26,7 +26,7 @@ public class MachineConsumption implements Serializable {
     private long id;
     @Enumerated(EnumType.STRING)
     private MachineType type;
-    private long timeAgo;
+    private long timeAgo; // in a galaxy far far away
     private String name;
     private double watt;
     private double cpu;

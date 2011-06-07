@@ -27,7 +27,7 @@ public class App {
      * @throws JRException
      * @throws NoSuchFieldException
      */
-    public static void main(String[] args) throws JRException, NoSuchFieldException {
+    public static void main(String... args) throws JRException, NoSuchFieldException {
 
         JasperDesign jspDesign = JRXmlLoader.load("src/main/resources/"
                 + "jasperreports/hiberReport.jrxml");

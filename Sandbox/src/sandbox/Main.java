@@ -17,18 +17,19 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Object o = new Object();
-        Object[] objects = {o, o};
-        List<Object> oList = new ArrayList<Object>();
-        Main.coucou(o);
-        Main.coucou(o, o);
+        Object object = new Object();
+        Object[] objects = {object, object};
+        List<Object> objectsList = new ArrayList<Object>();
+        Main.coucou(object);
+        Main.coucou(object, object);
         Main.coucou(objects);
-        Main.coucou(oList.toArray());
+        Main.coucou(objectsList.toArray());
         System.out.println(Enum.BOB.toString());
-        Object object = new Integer(1);
-        System.out.println(object.getClass());
+        Object objInt = new Integer(1);
+        System.out.println(objInt.getClass());
         Integer loop = 0;
-        hej();
+        Main.hej();
+        Main.hej(Main.class.getSimpleName());
         while (true) {
             A:
             {

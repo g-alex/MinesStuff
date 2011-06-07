@@ -5,6 +5,7 @@
 package btr.fr.garnier.persist;
 
 import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Criteria;
@@ -56,11 +57,8 @@ public class Persist {
     public static List get(Class clazz, Criterion... criterions) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
-        Criteria criteria = session.createCriteria(clazz);
-        for (Criterion criterion : criterions) {
-            criteria.add(criterion);
-        } // for
-        List result = criteria.list();
+        List result = Persist.addCriterions(session.createCriteria(clazz),
+                criterions).list();
         session.close();
         sessionFactory.close();
         return result;
@@ -79,12 +77,8 @@ public class Persist {
             Criterion... criterions) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
-        Criteria criteria = session.createCriteria(clazz).
-                addOrder(order.get(groupField));
-        for (Criterion criterion : criterions) {
-            criteria.add(criterion);
-        } // for
-        List result = criteria.list();
+        List result = Persist.addCriterions(session.createCriteria(clazz).
+                addOrder(order.get(groupField)), criterions).list();
         session.close();
         sessionFactory.close();
         return result;
@@ -94,40 +88,32 @@ public class Persist {
      * Select given fields on objects of the given class.
      *
      * @param clazz Class to select on.
-     * @param fields Maps of fields and operation done on it.
+     * @param projections Maps of fields and projections done on each.
+     * @param criterions Criterions to apply.
      * @return A list of fields selected on persisted clazz objects.
      */
-    public static List select(Class clazz, Map<Field, Selection> fields,
+    public static List select(Class clazz, LinkedHashMap<Field, Selection> projections,
             Criterion... criterions) {
         SessionFactory sessionFactory = Persist.getSessionFactory(clazz);
         Session session = sessionFactory.openSession();
-        ProjectionList projectionList = Projections.projectionList();
-        for (Map.Entry<Field, Selection> entry : fields.entrySet()) {
-            projectionList = entry.getValue().
-                    getProjection(projectionList, entry.getKey());
-        } // for
-        Criteria criteria = session.createCriteria(clazz);
-        for (Criterion criterion : criterions) {
-            criteria.add(criterion);
-        } // for
-        criteria.setProjection(projectionList);
-        List result = criteria.list();
+        List result =
+                Persist.addProjections(Persist.addCriterions(session.createCriteria(clazz),
+                criterions), projections).list();
         session.close();
         sessionFactory.close();
         return result;
     } // static List select(Class, Map<Field, Selection>)
 
     private static void append(Action action, Object... objects) {
+        assert objects.length > 0 : "Specify at least one object to append.";
         SessionFactory sessionFactory = null;
         Session session = null;
         Transaction transaction = null;
-        boolean set = false;
         for (Object object : objects) {
-            if (!set) {
+            if (sessionFactory == null && session == null && transaction == null) {
                 sessionFactory = Persist.getSessionFactory(object.getClass());
                 session = sessionFactory.openSession();
                 transaction = session.beginTransaction();
-                set = true;
             } // if
             action.apply(session, object);
         } // for
@@ -140,4 +126,21 @@ public class Persist {
         return new AnnotationConfiguration().addAnnotatedClass(clazz).
                 configure().buildSessionFactory();
     } // static SessionFactory getSessionFactory(Class)
-}
+
+    private static Criteria addCriterions(Criteria criteria, Criterion... criterions) {
+        for (Criterion criterion : criterions) {
+            criteria.add(criterion);
+        } // for
+        return criteria;
+    } // static Criteria addCriterions(Criteria, Criterion...)
+
+    private static Criteria addProjections(Criteria criteria, LinkedHashMap<Field, Selection> fields) {
+        ProjectionList projectionList = Projections.projectionList();
+        for (Map.Entry<Field, Selection> entry : fields.entrySet()) {
+            projectionList = entry.getValue().
+                    addProjection(projectionList, entry.getKey());
+        } // for
+        return criteria.setProjection(projectionList);
+    } // static Criteria addProjections(Criteria, Map<Field, Selection>)
+} // class Persist
+
