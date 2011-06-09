@@ -18,6 +18,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Textbox;
 
 /**
  *
@@ -30,6 +31,7 @@ public class IndexComposer extends GenericForwardComposer {
     Listitem noChoice;
     Button goVnc;
     Iframe guacamole;
+    Textbox debug;
 
     public IndexComposer() {
         super();
@@ -47,6 +49,7 @@ public class IndexComposer extends GenericForwardComposer {
         for (Map.Entry<String, String> e : this.ips.entrySet()) {
             this.vncIp.appendItem(e.getKey(), e.getValue());
         } // for
+        debug.setValue(this.session.getLocalName());
     } // void doAfterCompose(Component)
 
     public void onClick$goVnc(Event event) throws UnknownHostException, IOException {
@@ -54,7 +57,7 @@ public class IndexComposer extends GenericForwardComposer {
         if (this.checkIp(ip)) {
             ((ServletContext) this.application.getNativeContext()).getContext("/guacamole").setAttribute("host", ip);
             if (this.guacamole.getSrc() == null) {
-                this.guacamole.setSrc("http://localhost:8080/guacamole");
+                this.guacamole.setSrc("http://" + this.execution.getLocalAddr() + ":8080/guacamole");
             } // if
         } else {
             this.guacamole.setSrc(null);

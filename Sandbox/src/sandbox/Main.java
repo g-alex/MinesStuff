@@ -30,6 +30,7 @@ public class Main {
         Integer loop = 0;
         Main.hej();
         Main.hej(Main.class.getSimpleName());
+        Main.coucou();
         while (true) {
             A:
             {
