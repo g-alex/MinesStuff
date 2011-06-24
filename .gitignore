@@ -1,5 +1,6 @@
 */target/*
 */build*
+*/dist/*
 guacamole-src/*
 Icanhazcheezburger/*
 *.~lock.*
@@ -11,6 +12,7 @@ Icanhazcheezburger/*
 *.svn
 BtrModel/*
 BtrPersist/*
+BtrPersistence/*
 BtrReports/*
 EntropyWebManager/*
 guacamole/*

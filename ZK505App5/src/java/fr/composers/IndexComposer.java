@@ -40,6 +40,7 @@ public class IndexComposer extends GenericForwardComposer {
         this.ips.put("Georg@172.28.2.197", "172.28.2.197");
         this.ips.put("Mike@192.168.122.220", "192.168.122.220");
         this.ips.put("VraiTet3@192.168.122.164", "192.168.122.164");
+        this.ips.put("KVM@localhost", "127.0.0.1");
     } // IndexComposer()
 
     @Override
@@ -56,8 +57,11 @@ public class IndexComposer extends GenericForwardComposer {
         String ip = (String) this.vncIp.getSelectedItem().getValue();
         if (this.checkIp(ip)) {
             ((ServletContext) this.application.getNativeContext()).getContext("/guacamole").setAttribute("host", ip);
+            ((ServletContext) this.application.getNativeContext()).getContext("/guacamole").setAttribute("port", 5901);
             if (this.guacamole.getSrc() == null) {
-                this.guacamole.setSrc("http://" + this.execution.getLocalAddr() + ":8080/guacamole");
+                String localAddr = this.execution.getLocalAddr();
+                localAddr = localAddr.contains(":") ? "[" + localAddr + "]" : localAddr;
+                this.guacamole.setSrc("http://" + localAddr + ":8080/guacamole");
             } // if
         } else {
             this.guacamole.setSrc(null);
